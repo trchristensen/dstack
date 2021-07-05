@@ -35,6 +35,26 @@ const QuestionCard = (props) => {
         justifyContent="flex-center"
       >
         <Stack
+          color="gray.500"
+          textAlign="center"
+          minW="44px"
+          // bg="red.200"
+          rounded="md"
+          px={1}
+          py={2}
+          pt={0}
+          mb={0}
+          spacing={1}
+          justifyContent="flex-start"
+          fontSize="1.30769231rem"
+        >
+          <Text as="span">{props.children}</Text>
+          <Text lineHeight="1" fontSize="md" as="span">
+            <Icon as={RiQuestionAnswerLine} />
+          </Text>
+        </Stack>
+        <Stack
+          color="gray.500"
           textAlign="center"
           minW="44px"
           // bg="red.200"
@@ -49,29 +69,12 @@ const QuestionCard = (props) => {
         >
           <Text as="span">{props.active_votes.length}</Text>
           <Text lineHeight="1" fontSize="md" as="span">
-            <Icon as={RiQuestionAnswerLine} />
-          </Text>
-        </Stack>
-        <Stack
-          textAlign="center"
-          minW="44px"
-          // bg="red.200"
-          rounded="md"
-          px={1}
-          py={2}
-          pt={0}
-          mb={0}
-          spacing={1}
-          justifyContent="flex-start"
-          fontSize="1.30769231rem"
-        >
-          <Text as="span">{props.replies.length}</Text>
-          <Text lineHeight="1" fontSize="md" as="span">
             <Icon as={RiHeartLine} />
           </Text>
         </Stack>
 
         <Stack
+          color="gray.500"
           textAlign="center"
           minW="44px"
           // bg="red.200"
@@ -86,12 +89,9 @@ const QuestionCard = (props) => {
           // fontSize=".95rem"
         >
           <Text as="span">
-            {
-            parseInt(props.promoted) == 0 ? "0" :
-            props.promoted.slice(
-              0,
-              props.promoted.length - 6
-            )}
+            {parseInt(props.promoted) == 0
+              ? "0"
+              : props.promoted.slice(0, props.promoted.length - 6)}
           </Text>
           <Text lineHeight="1" fontSize="md" as="span">
             {/* <Icon as={RiStackLine} /> */}
@@ -106,7 +106,7 @@ const QuestionCard = (props) => {
         flexDirection="column"
         justifyContent="space-between"
       >
-        <Link href={`/questions/${props.post_id}/${props.title}`}>
+        <Link href={`/questions/${props.author}/${props.permlink}`}>
           <a>
             <Text
               color="blue.500"
@@ -128,8 +128,8 @@ const QuestionCard = (props) => {
           justifyContent="space-between"
           alignItems="flex-start"
         >
-          <HStack spacing={2} mt={2} flexWrap="wrap">
-            {metadata.tags.map((tag) => (
+          <HStack spacing={"6px"} mt={2} flexWrap="wrap">
+            {metadata.tags.slice(0,6).map((tag) => (
               <Link href={`/tags/${tag}`}>
                 <a>
                   <Tag
@@ -146,7 +146,13 @@ const QuestionCard = (props) => {
               </Link>
             ))}
           </HStack>
-          <Box id="user-details" textAlign="right">
+          <Box
+            id="user-details"
+            textAlign="right"
+            height="100%"
+            minWidth="120px"
+            alignItems="flex-end"
+          >
             <Stack spacing={0} lineHeight="1">
               <Link href="#">
                 <a>

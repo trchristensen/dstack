@@ -12,6 +12,7 @@
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
     "@hiveio/dhive": "^0.14.16",
+    "@hiveio/hive-js": "^1.0.0",
     "@types/node": "^16.0.0",
     "@types/react": "^17.0.13",
     "@uiw/react-md-editor": "^3.4.7",
