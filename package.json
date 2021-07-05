@@ -11,17 +11,20 @@
     "@chakra-ui/react": "^1.4.2",
     "@emotion/react": "^11.0.0",
     "@emotion/styled": "^11.0.0",
+    "@hiveio/dhive": "^0.14.16",
     "@types/node": "^16.0.0",
     "@types/react": "^17.0.13",
     "@uiw/react-md-editor": "^3.4.7",
     "@zeit/next-css": "^1.0.1",
+    "date-fns": "^2.22.1",
     "framer-motion": "^4.0.3",
     "hivesigner": "^3.2.7",
     "next": "latest",
     "next-remove-imports": "^1.0.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-icons": "^4.2.0"
+    "react-icons": "^4.2.0",
+    "react-query": "^3.18.1"
   },
   "license": "MIT",
   "devDependencies": {

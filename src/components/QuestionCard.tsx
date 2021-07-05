@@ -5,9 +5,15 @@ import {
   RiAwardLine,
   RiQuestionAnswerLine,
   RiGasStationLine,
+  RiHeartLine,
+  RiStackLine,
+  RiRocketLine,
 } from "react-icons/ri";
+import { formatDistanceToNow, formatDistanceToNowStrict, parseISO } from "date-fns";
 
 const QuestionCard = (props) => {
+  const metadata = JSON.parse(props.json_metadata);
+
   return (
     <Box
       w="100%"
@@ -21,38 +27,77 @@ const QuestionCard = (props) => {
       borderBottomWidth={1}
     >
       <Box
-        minW="100"
+        minW="132"
         h="100%"
         color="gray.600"
         d="flex"
-        flexDirection="column"
+        flexDirection="row"
         justifyContent="flex-center"
       >
-        <HStack
-          className={props.answered ? `answered` : `unanswered`}
+        <Stack
+          textAlign="center"
+          minW="44px"
+          // bg="red.200"
           rounded="md"
-          borderColor="blue.500"
           px={1}
           py={2}
           pt={0}
           mb={0}
           spacing={1}
-          justifyContent="center"
-          fontSize="lg"
+          justifyContent="flex-start"
+          fontSize="1.30769231rem"
         >
-          <Text as="span">{props.answerCount}</Text>
-          <Text lineHeight="0.75" as="span">
+          <Text as="span">{props.active_votes.length}</Text>
+          <Text lineHeight="1" fontSize="md" as="span">
             <Icon as={RiQuestionAnswerLine} />
           </Text>
-        </HStack>
-        <HStack mb={2} spacing={1} justifyContent="center">
-          <Text fontSize="md" as="span">
-            Ξ0.050
+        </Stack>
+        <Stack
+          textAlign="center"
+          minW="44px"
+          // bg="red.200"
+          rounded="md"
+          px={1}
+          py={2}
+          pt={0}
+          mb={0}
+          spacing={1}
+          justifyContent="flex-start"
+          fontSize="1.30769231rem"
+        >
+          <Text as="span">{props.replies.length}</Text>
+          <Text lineHeight="1" fontSize="md" as="span">
+            <Icon as={RiHeartLine} />
           </Text>
-          <Text lineHeight="0.75" fontSize="sm" as="span">
-            <Icon as={RiAwardLine} />
+        </Stack>
+
+        <Stack
+          textAlign="center"
+          minW="44px"
+          // bg="red.200"
+          rounded="md"
+          px={1}
+          py={2}
+          pt={0}
+          mb={0}
+          spacing={1}
+          justifyContent="flex-start"
+          fontSize="1.30769231rem"
+          // fontSize=".95rem"
+        >
+          <Text as="span">
+            {
+            parseInt(props.promoted) == 0 ? "0" :
+            props.promoted.slice(
+              0,
+              props.promoted.length - 6
+            )}
           </Text>
-        </HStack>
+          <Text lineHeight="1" fontSize="md" as="span">
+            {/* <Icon as={RiStackLine} /> */}
+            <Icon as={RiRocketLine} />
+          </Text>
+        </Stack>
       </Box>
       <Box
         px={2}
@@ -61,7 +106,7 @@ const QuestionCard = (props) => {
         flexDirection="column"
         justifyContent="space-between"
       >
-        <Link href={`/questions/${props.id}/${props.title}`}>
+        <Link href={`/questions/${props.post_id}/${props.title}`}>
           <a>
             <Text
               color="blue.500"
@@ -83,8 +128,8 @@ const QuestionCard = (props) => {
           justifyContent="space-between"
           alignItems="flex-start"
         >
-          <HStack spacing={2} mt={2}>
-            {props.tags.map((tag) => (
+          <HStack spacing={2} mt={2} flexWrap="wrap">
+            {metadata.tags.map((tag) => (
               <Link href={`/tags/${tag}`}>
                 <a>
                   <Tag
@@ -106,12 +151,14 @@ const QuestionCard = (props) => {
               <Link href="#">
                 <a>
                   <Text color="gray.600" fontSize="xs" as="span">
-                    {props.author.address.slice(0, 6)}...
-                    {props.author.address.slice(-4)}
+                    {props.author}
                   </Text>
                   <Text color="gray.600" fontSize="xs" as="span">
                     {" ◦ "}
-                    Ξ0.149
+                    {Math.trunc(
+                      (Math.log10(Math.abs(props.author_reputation)) - 9) * 9 +
+                        25
+                    )}
                   </Text>
                 </a>
               </Link>
@@ -122,18 +169,24 @@ const QuestionCard = (props) => {
                   fontSize="xs"
                   textAlign="right"
                 >
-                  Asked: 10 minutes ago
+                  {props.last_update == props.created
+                    ? `created `
+                    : `modified `}
+
+                  {formatDistanceToNowStrict(parseISO(`${props.last_update}`), {
+                    addSuffix: true,
+                  })}
                 </Text>
               </Box>
             </Stack>
-            <HStack mb={0} spacing={1} justify="flex-end" color="gray.600">
+            {/* <HStack mb={0} spacing={1} justify="flex-end" color="gray.600">
               <Text fontSize="xs" as="span">
                 Ξ0.004
               </Text>
               <Text lineHeight="0.75" fontSize="xs" as="span">
                 <Icon as={RiGasStationLine} />
               </Text>
-            </HStack>
+            </HStack> */}
           </Box>
         </Box>
       </Box>

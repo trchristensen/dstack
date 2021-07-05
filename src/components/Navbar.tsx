@@ -1,5 +1,6 @@
-import React from 'react';
+import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   Box,
   Flex,
@@ -19,7 +20,10 @@ import {
   Input,
   InputLeftElement,
   InputGroup,
-  useColorMode
+  useColorMode,
+  FormControl,
+  FormLabel,
+  Checkbox
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -29,19 +33,26 @@ import {
   SearchIcon,
 } from "@chakra-ui/icons";
 
-import metamaskIcon from "../public/metamask-fox.svg";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react";
 
-
-import { SITE_NAME, NAV_ITEMS } from '../constants'
+import { SITE_NAME, NAV_ITEMS } from "../constants";
+import keychainIcon from "../public/keychain.6846c271.png";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
 
-  const { colorMode } = useColorMode()
+  const { colorMode } = useColorMode();
 
-  const bgColor = { dark: 'gray.50', light: 'gray.900' }
-  const color = { dark: 'black', light: 'white' }
-
+  const bgColor = { dark: "gray.50", light: "gray.900" };
+  const color = { dark: "black", light: "white" };
 
   return (
     <Box
@@ -113,29 +124,7 @@ export default function WithSubnavigation() {
           direction={"row"}
           spacing={6}
         >
-          <Button
-            display={{ base: "none", md: "inline-flex" }}
-            fontSize={"sm"}
-            fontWeight={600}
-            // color={"white"}
-            // bg={"black"}
-            href={"#"}
-            // _hover={{
-            //   bg: "orange.500",
-            // }}
-            bg={bgColor[colorMode]}
-            color={color[colorMode]}
-            minW="130px"
-            borderRadius="full"
-          >
-            <Image
-              src={metamaskIcon}
-              alt="MetaMask"
-              width="35px"
-              height="35px"
-            />
-            <Text ml={2}>Connect</Text>
-          </Button>
+          <Login />
         </Stack>
       </Flex>
 
@@ -145,7 +134,6 @@ export default function WithSubnavigation() {
     </Box>
   );
 }
-
 
 const MobileNav = () => {
   return (
@@ -211,5 +199,86 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
         </Stack>
       </Collapse>
     </Stack>
+  );
+};
+
+const Login = () => {
+  const { colorMode } = useColorMode();
+  const router = useRouter();
+  const bgColor = { dark: "gray.50", light: "gray.900" };
+  const color = { dark: "black", light: "white" };
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [username, setUsername] = React.useState('')
+
+  const handleLogin = () => {
+    // if(username.length == 0) return;
+    console.log('handleLogin')
+   const keychain = window.hive_keychain;
+    const signedMessageObj = { type: 'login', app: 'ipeeyay' };
+    const messageObj = { signed_message: signedMessageObj, player: username, timestamp: parseInt(new Date().getTime() / 1000, 10) };
+    keychain.requestSignBuffer(username, JSON.stringify(messageObj), 'Posting', response => {
+      if (!response.success) { return; }
+      //Successfully logged in
+      router.push('/');
+      console.log(response);
+    });
+  }
+
+  return (
+    <React.Fragment>
+      <Button
+        display={{ base: "none", md: "inline-flex" }}
+        fontSize={"sm"}
+        fontWeight={600}
+        // color={"white"}
+        // bg={"black"}
+        href={"#"}
+        // _hover={{
+        //   bg: "orange.500",
+        // }}
+        bg={bgColor[colorMode]}
+        color={color[colorMode]}
+        minW="130px"
+        borderRadius="full"
+        onClick={onOpen}
+      >
+        <Text ml={2}>Connect</Text>
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <Box px={4} pb={8}>
+            <ModalHeader px={0}>Login to {SITE_NAME}</ModalHeader>
+            <Stack spacing={4}>
+              <FormControl id="username">
+                <FormLabel>Username</FormLabel>
+                <Input type="text" />
+              </FormControl>
+
+              <Stack spacing={10}>
+                <Button
+                  bg={"black"}
+                  color={"white"}
+                  _hover={{
+                    bg: "black",
+                  }}
+                  // onClick={() => alert('hello')}
+                  onClick={() => handleLogin()}
+                >
+                  Login with Hive Keychain
+                  {/* <Image
+                    src={keychainIcon}
+                    alt="Hive Keychain Login"
+                    // width="35px"
+                    height="135px"
+                  /> */}
+                </Button>
+              </Stack>
+            </Stack>
+          </Box>
+        </ModalContent>
+      </Modal>
+    </React.Fragment>
   );
 };
