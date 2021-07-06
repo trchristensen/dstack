@@ -1,17 +1,22 @@
-import React from 'react';
-import MDEditor, { commands } from "@uiw/react-md-editor";
-import "@uiw/react-md-editor/dist/markdown-editor.css";
-import "@uiw/react-markdown-preview/dist/markdown.css";
+// import react, react-markdown-editor-lite, and a markdown parser you like
+import React from "react";
+import * as ReactDOM from "react-dom";
+import MarkdownIt from "markdown-it";
+import MdEditor from "react-markdown-editor-lite";
+// import style manually
+import "react-markdown-editor-lite/lib/index.css";
+// Initialize a markdown parser
+const mdParser = new MarkdownIt(/* Markdown-it options */);
 
-
-export default function QuestionComposer({...props}) {
-
-    const [value, setValue] = React.useState(props.value);
-    
-    return (
-      <React.Fragment>
-        <MDEditor value={value} onChange={setValue} />
-        <MDEditor.Markdown source={value} />
-      </React.Fragment>
-    );
+function handleEditorChange({ html, text }) {
+  console.log("handleEditorChange", html, text);
 }
+export default function MarkdownEditor (props)  {
+  return (
+    <MdEditor
+      style={{ height: "500px" }}
+      renderHTML={(text) => mdParser.render(text)}
+      onChange={handleEditorChange}
+    />
+  );
+};

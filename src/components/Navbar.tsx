@@ -23,7 +23,7 @@ import {
   useColorMode,
   FormControl,
   FormLabel,
-  Checkbox
+  Checkbox,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -45,12 +45,12 @@ import {
 
 import { SITE_NAME, NAV_ITEMS } from "../constants";
 import keychainIcon from "../public/keychain.6846c271.png";
+import { AuthContext } from "../lib/AuthProvider";
+import { signinWithHiveKeychain } from "../lib/AuthProvider";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
-
   const { colorMode } = useColorMode();
-
   const bgColor = { dark: "gray.50", light: "gray.900" };
   const color = { dark: "black", light: "white" };
 
@@ -180,7 +180,6 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
           />
         )}
       </Flex>
-
       <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
         <Stack
           mt={2}
@@ -208,42 +207,34 @@ const Login = () => {
   const bgColor = { dark: "gray.50", light: "gray.900" };
   const color = { dark: "black", light: "white" };
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [username, setUsername] = React.useState('')
 
-  const handleLogin = () => {
-    // if(username.length == 0) return;
-    console.log('handleLogin')
-   const keychain = window.hive_keychain;
-    const signedMessageObj = { type: 'login', app: 'ipeeyay' };
-    const messageObj = { signed_message: signedMessageObj, player: username, timestamp: parseInt(new Date().getTime() / 1000, 10) };
-    keychain.requestSignBuffer(username, JSON.stringify(messageObj), 'Posting', response => {
-      if (!response.success) { return; }
-      //Successfully logged in
-      router.push('/');
-      console.log(response);
-    });
-  }
+  const { user, setUser } = React.useContext(AuthContext);
+  const [input, setInput] = React.useState("");
 
   return (
     <React.Fragment>
-      <Button
-        display={{ base: "none", md: "inline-flex" }}
-        fontSize={"sm"}
-        fontWeight={600}
-        // color={"white"}
-        // bg={"black"}
-        href={"#"}
-        // _hover={{
-        //   bg: "orange.500",
-        // }}
-        bg={bgColor[colorMode]}
-        color={color[colorMode]}
-        minW="130px"
-        borderRadius="full"
-        onClick={onOpen}
-      >
-        <Text ml={2}>Connect</Text>
-      </Button>
+      {user ? (
+        user
+      ) : (
+        <Button
+          display={{ base: "none", md: "inline-flex" }}
+          fontSize={"sm"}
+          fontWeight={600}
+          // color={"white"}
+          // bg={"black"}
+          href={"#"}
+          _hover={{
+            bg: "orange.500",
+          }}
+          bg={bgColor[colorMode]}
+          color={color[colorMode]}
+          minW="130px"
+          borderRadius="full"
+          onClick={onOpen}
+        >
+          <Text ml={2}>Connect</Text>
+        </Button>
+      )}
 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -264,7 +255,10 @@ const Login = () => {
                     bg: "black",
                   }}
                   // onClick={() => alert('hello')}
-                  onClick={() => handleLogin()}
+                  onClick={() => {
+                    signinWithHiveKeychain(input, "/");
+                    onClose();
+                  }}
                 >
                   Login with Hive Keychain
                   {/* <Image

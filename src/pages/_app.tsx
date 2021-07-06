@@ -6,6 +6,8 @@ import theme from '../theme'
    QueryClientProvider,
  } from "react-query";
  import { ReactQueryDevtools } from 'react-query/devtools'
+// import { AuthProvider } from '../lib/_auth';
+import { AuthProvider } from '../lib/AuthProvider';
 
 
 function MyApp({ Component, pageProps }) {
@@ -15,18 +17,20 @@ function MyApp({ Component, pageProps }) {
 
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ChakraProvider resetCSS theme={theme}>
-        <ColorModeProvider
-          options={{
-            useSystemColorMode: true,
-          }}
-        >
-          <Component {...pageProps} />
-        </ColorModeProvider>
-      </ChakraProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <AuthProvider>
+      <QueryClientProvider client={queryClient}>
+        <ChakraProvider resetCSS theme={theme}>
+          <ColorModeProvider
+            options={{
+              useSystemColorMode: true,
+            }}
+          >
+            <Component {...pageProps} />
+          </ColorModeProvider>
+        </ChakraProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </AuthProvider>
   );
 }
 

@@ -1,105 +1,75 @@
-import React from "react";
-import { useRouter } from "next/router";
 
-// import { Client } from "@hiveio/dhive";
+import { Button, FormControl, Input, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/layout";
+import React, { useState } from "react";
+
+import { AuthProvider } from "../lib/AuthProvider";
+import { AuthContext } from "../lib/AuthProvider";
+
+import { useQuery } from "react-query";
+
+import {signinWithHiveKeychain} from '../lib/AuthProvider';
+import { findComments } from "../lib/dhive";
 
 export default function SandBox() {
-  const router = useRouter();
-
-  const handleClick = () => {
-    const keychain = window.hive_keychain;
-
-    const taglist = ["tag", "another-tag"];
-    const account_name = "ipeeyay";
-    const title = "title";
-    const body = "body";
-    const parent_permlink = "dstack";
-    const parent_author = "";
-    const json_metadata = JSON.stringify({
-      tags: taglist,
-      app: "dstack/0.1",
-    });
-    const permlink = Math.random().toString(36).substring(2);
-    const comment_options = "";
-
-    keychain.requestPost(
-      account_name,
-      title,
-      body,
-      parent_permlink,
-      parent_author,
-      json_metadata,
-      permlink,
-      comment_options,
-      function (response) {
-        console.log(response);
-      }
-    );
-  };
-
-  const handleTip = () => {
-      const username = "ipeeyay";
-      const to = "trchristensen";
-      const amount = 1;
-      const memo = "tip from dstack!";
-      const token = "HIVE";
-      
-      const keychain = window.hive_keychain;
-      keychain.requestSendToken(username, to,amount,memo, token, function(response) {
-    console.log(response);
-});
-  }
-
-
-// const client = new Client([
-//   "https://api.hive.blog",
-//   "https://api.hivekings.com",
-//   "https://anyx.io",
-//   "https://api.openhive.network",
-// ]);
-
-  const getPosts = () => {
-    let opts = {};
-
-    //connect to production server
-    opts.addressPrefix = "STM";
-    opts.chainId =
-      "beeab0de00000000000000000000000000000000000000000000000000000000";
-
-    //connect to server which is connected to the network/production
-
-    const query = {
-      tag: "dstack",
-      limit: 50,
-    };
-
-    // trending, hot, created, promoted
-    const filter = "created";
-
-    client.database
-      .getDiscussions(filter, query)
-      .then((result) => {
-        console.log("Response received:", result);
-        if (result) {
-          var posts = [];
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        alert(`Error:${err}, try again`);
-      });
-  };
-
-
-
-
   return (
-    <>
-      <button onClick={handleClick}>Post</button>
-      <p></p>
-      <button onClick={handleTip}>Tip</button>
-      <p></p>
-      {/* <button onClick={getPosts}>Get Posts</button> */}
-    </>
+    <AuthProvider>
+      <UserDetails />
+    </AuthProvider>
   );
 }
+
+const UserDetails = () => {
+  const {user, setUser} = React.useContext(AuthContext);
+  const [input, setInput] = React.useState('')
+
+  const { data } = useQuery(
+    "question",
+    () =>
+      findComments(
+        "peping",
+        "student-trying-to-live-in-a-crypto-world-my-introduction-to-the-hive"
+      ),
+    // { initialData: post }
+  );
+
+  return (
+    <Box
+    height="100vh"
+    w="100%"
+      d="flex"
+      justifyContent="center"
+      alignItems="center"
+      bg={"gray.800"}
+      color="white"
+      textAlign="center"
+      flexDir="column"
+      flexWrap="wrap"
+    >
+      {/* <Box d="flex" flexWrap="wrap" margin="auto" textAlign="center" w="100%" maxW="400px">{JSON.stringify(user)}</Box>
+
+      <Box w="400px" d="flex" bg="gray.200" p={4} pr={0}>
+        <FormControl>
+          <Input
+          color="gray.800"
+            placeholder="username"
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+          />
+        </FormControl>
+        <FormControl>
+          <Button
+            bgColor="gray.800"
+            onClick={() => signinWithHiveKeychain(input, null)}
+          >
+            Sign In
+          </Button>
+        </FormControl>
+      </Box> */}
+
+      {JSON.stringify(data)}
+
+    </Box>
+  );
+};

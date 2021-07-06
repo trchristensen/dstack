@@ -17,7 +17,7 @@ import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { NAV_ITEMS } from '../../constants'
 
-export default function ({ main, header = null, titleSection = null }) {
+const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
   return (
     <React.Fragment>
       <Navbar />
@@ -100,8 +100,8 @@ const Header = () => {
 const LeftSideBar = () => {
   return (
     <Box w="100%">
-      {NAV_ITEMS.map((link) => (
-        <LinkItem {...link} />
+      {NAV_ITEMS.map((link, idx) => (
+        <LinkItem key={idx} {...link} />
       ))}
     </Box>
   );
@@ -160,3 +160,5 @@ const LinkItem = (props) => {
     </Box>
   );
 };
+
+export default SidebarTemplate;

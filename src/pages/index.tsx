@@ -8,7 +8,7 @@ import { useRouter } from "next/router";
 
 import { useQuery } from 'react-query';
 
-import { getPosts } from '../actions/posts';
+import { getPosts } from '../lib/dhive';
 
 export default function Index() {
   return (
@@ -55,10 +55,10 @@ const Main = () => {
         </Button>
       </Box>
       
-      { data && data.map((post) => {
+      { data && data.map((post, idx) => {
 
         return (
-          <QuestionCard {...post} />
+          <QuestionCard key={idx} {...post} />
         );
       })}
     </Fragment>

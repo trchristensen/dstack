@@ -10,9 +10,13 @@ import {
   RiRocketLine,
 } from "react-icons/ri";
 import { formatDistanceToNow, formatDistanceToNowStrict, parseISO } from "date-fns";
+import { Router } from "next/router";
+import { convertDateTimeToUTC } from "../utils";
+import { zonedTimeToUtc, utcToZonedTime, format } from "date-fns-tz";
 
 const QuestionCard = (props) => {
   const metadata = JSON.parse(props.json_metadata);
+
 
   return (
     <Box
@@ -20,6 +24,7 @@ const QuestionCard = (props) => {
       px={3}
       py={3}
       pb={1}
+      pl={1}
       d="flex"
       flexWrap="nowrap"
       flexDir="row"
@@ -40,7 +45,7 @@ const QuestionCard = (props) => {
           minW="44px"
           // bg="red.200"
           rounded="md"
-          px={1}
+          px={0}
           py={2}
           pt={0}
           mb={0}
@@ -59,7 +64,7 @@ const QuestionCard = (props) => {
           minW="44px"
           // bg="red.200"
           rounded="md"
-          px={1}
+          px={0}
           py={2}
           pt={0}
           mb={0}
@@ -79,7 +84,7 @@ const QuestionCard = (props) => {
           minW="44px"
           // bg="red.200"
           rounded="md"
-          px={1}
+          px={0}
           py={2}
           pt={0}
           mb={0}
@@ -129,8 +134,8 @@ const QuestionCard = (props) => {
           alignItems="flex-start"
         >
           <HStack spacing={"6px"} mt={2} flexWrap="wrap">
-            {metadata.tags.slice(0,6).map((tag) => (
-              <Link href={`/tags/${tag}`}>
+            {metadata.tags.slice(0, 6).map((tag) => (
+              <Link key={tag} href={`/tags/${tag}`}>
                 <a>
                   <Tag
                     size="sm"
@@ -153,7 +158,12 @@ const QuestionCard = (props) => {
             minWidth="120px"
             alignItems="flex-end"
           >
-            <Stack spacing={0} lineHeight="1">
+            <Stack
+              spacing={0}
+              lineHeight="1.2"
+              height="100%"
+              justifyContent="flex-end"
+            >
               <Link href="#">
                 <a>
                   <Text color="gray.600" fontSize="xs" as="span">
@@ -174,14 +184,17 @@ const QuestionCard = (props) => {
                   as="span"
                   fontSize="xs"
                   textAlign="right"
+                  display="flex"
+                  flexWrap="nowrap"
+                  float="right"
                 >
-                  {props.last_update == props.created
-                    ? `created `
-                    : `modified `}
+                  <Text as="span" d="inline" mr={1}>
+                    {props.last_update == props.created
+                      ? `created`
+                      : `modified`}
+                  </Text>
 
-                  {formatDistanceToNowStrict(parseISO(`${props.last_update}`), {
-                    addSuffix: true,
-                  })}
+                  {props.last_update}
                 </Text>
               </Box>
             </Stack>
