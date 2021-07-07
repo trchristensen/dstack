@@ -27,9 +27,10 @@ const QuestionCard = (props) => {
       pl={1}
       d="flex"
       flexWrap="nowrap"
-      flexDir="row"
+      // flexDir="row"
       alignItems="stretch"
       borderBottomWidth={1}
+      flexDir={["column", "column", "row"]}
     >
       <Box
         minW="132"
@@ -52,6 +53,8 @@ const QuestionCard = (props) => {
           spacing={1}
           justifyContent="flex-start"
           fontSize="1.30769231rem"
+          direction={["row", "row", "column"]}
+          alignItems="center"
         >
           <Text as="span">{props.children}</Text>
           <Text lineHeight="1" fontSize="md" as="span">
@@ -71,6 +74,8 @@ const QuestionCard = (props) => {
           spacing={1}
           justifyContent="flex-start"
           fontSize="1.30769231rem"
+          direction={["row", "row", "column"]}
+          alignItems="center"
         >
           <Text as="span">{props.active_votes.length}</Text>
           <Text lineHeight="1" fontSize="md" as="span">
@@ -91,7 +96,9 @@ const QuestionCard = (props) => {
           spacing={1}
           justifyContent="flex-start"
           fontSize="1.30769231rem"
+          direction={["row", "row", "column"]}
           // fontSize=".95rem"
+          alignItems="center"
         >
           <Text as="span">
             {parseInt(props.promoted) == 0
@@ -116,10 +123,12 @@ const QuestionCard = (props) => {
             <Text
               color="blue.500"
               as="h3"
-              fontSize="lg"
+              fontSize={["md", "md", "lg"]}
               lineHeight="1.3"
               mb={1}
+              noOfLines={1}
             >
+              {/* {props.title.length > 70 ? props.title.slice(0, 70) + '...' : props.title} */}
               {props.title}
             </Text>
           </a>
@@ -132,9 +141,10 @@ const QuestionCard = (props) => {
           d="flex"
           justifyContent="space-between"
           alignItems="flex-start"
+          flexDir={["column", "column", "row"]}
         >
           <HStack spacing={"6px"} mt={2} flexWrap="wrap">
-            {metadata.tags.slice(0, 6).map((tag) => (
+            {metadata.tags.slice(0, 4).map((tag) => (
               <Link key={tag} href={`/tags/${tag}`}>
                 <a>
                   <Tag
@@ -150,19 +160,38 @@ const QuestionCard = (props) => {
                 </a>
               </Link>
             ))}
+            {metadata.tags.length > 5 && (
+              <Link href="#">
+                <a>
+                  <Tag
+                    size="sm"
+                    variant="ghost"
+                    bg="gray.100"
+                    color="gray.600"
+                    fontWeight="400"
+                  >
+                    ...
+                  </Tag>
+                </a>
+              </Link>
+            )}
           </HStack>
+
           <Box
             id="user-details"
             textAlign="right"
             height="100%"
             minWidth="120px"
             alignItems="flex-end"
+            w={["100%", "100%", "auto"]}
+            // flexShrink={0}
           >
             <Stack
               spacing={0}
               lineHeight="1.2"
               height="100%"
               justifyContent="flex-end"
+              flexShrink={0}
             >
               <Link href="#">
                 <a>
@@ -186,13 +215,12 @@ const QuestionCard = (props) => {
                   textAlign="right"
                   display="flex"
                   flexWrap="nowrap"
+                  flexShrink={0}
                   float="right"
                 >
-                  <Text as="span" d="inline" mr={1}>
-                    {props.last_update == props.created
-                      ? `created`
-                      : `modified`}
-                  </Text>
+                  {props.last_update == props.created
+                    ? `created `
+                    : `modified `}
 
                   {props.last_update}
                 </Text>

@@ -21,7 +21,6 @@ const client = new Client([
 
 
 export const getPost = async (author, permlink) => {
-
     console.log('parameters', author, permlink)
     
     const data = client.database
@@ -60,7 +59,7 @@ export const findComments = async (author, permlink) => {
 
   return data;
 };
-
+  
 
 
 // export const getPost = async (author:string, permlink:string) => {
@@ -75,12 +74,12 @@ export const getPosts = async () => {
 
   const query = {
     // tag: "dstack",
-    tag: "philippines",
+    tag: "travel",
     limit: 100,
   };
 
   // trending, hot, created, promoted
-  const filter = "created";
+  const filter = "hot";
 
   const data = client.database
     .getDiscussions(filter, query)

@@ -65,11 +65,11 @@ const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
               <Box w="100%">{main}</Box>
               <Box
                 w="300px"
-                  bg="gray.100"
+                  // bg="gray.100"
                 flexShrink={0}
                 display={["none", "none", "none", "block"]}
               >
-                <Box>Right Sidebar</Box>
+                {/* <Box>Right Sidebar</Box> */}
               </Box>
             </Box>
           </Box>

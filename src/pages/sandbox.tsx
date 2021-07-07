@@ -1,15 +1,12 @@
-
 import { Button, FormControl, Input, Text } from "@chakra-ui/react";
 import { Box } from "@chakra-ui/layout";
 import React, { useState } from "react";
-
 import { AuthProvider } from "../lib/AuthProvider";
 import { AuthContext } from "../lib/AuthProvider";
-
 import { useQuery } from "react-query";
 
-import {signinWithHiveKeychain} from '../lib/AuthProvider';
-import { findComments } from "../lib/dhive";
+import { findAccounts, getContent } from "../lib/hive-js";
+import hive from "@hiveio/hive-js";
 
 export default function SandBox() {
   return (
@@ -20,56 +17,24 @@ export default function SandBox() {
 }
 
 const UserDetails = () => {
-  const {user, setUser} = React.useContext(AuthContext);
-  const [input, setInput] = React.useState('')
 
-  const { data } = useQuery(
-    "question",
-    () =>
-      findComments(
-        "peping",
-        "student-trying-to-live-in-a-crypto-world-my-introduction-to-the-hive"
-      ),
-    // { initialData: post }
-  );
+const getData = async () => {
+    const data = await hive.api.getStateWith({ path : "/@ipeeyay/" },
+    (err, data) => {
+        console.log(data)
+    }
+    )
+}
 
-  return (
-    <Box
-    height="100vh"
-    w="100%"
-      d="flex"
-      justifyContent="center"
-      alignItems="center"
-      bg={"gray.800"}
-      color="white"
-      textAlign="center"
-      flexDir="column"
-      flexWrap="wrap"
-    >
-      {/* <Box d="flex" flexWrap="wrap" margin="auto" textAlign="center" w="100%" maxW="400px">{JSON.stringify(user)}</Box>
+  const { user, setUser } = React.useContext(AuthContext);
+  const [input, setInput] = React.useState("");
 
-      <Box w="400px" d="flex" bg="gray.200" p={4} pr={0}>
-        <FormControl>
-          <Input
-          color="gray.800"
-            placeholder="username"
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-        </FormControl>
-        <FormControl>
-          <Button
-            bgColor="gray.800"
-            onClick={() => signinWithHiveKeychain(input, null)}
-          >
-            Sign In
-          </Button>
-        </FormControl>
-      </Box> */}
+//   const [accounts, setAccounts] = React.useState(null)
+  const { isLoading, error, data, isFetching } = useQuery("question", () => getData())
+    
 
-      {JSON.stringify(data)}
+  if (isLoading) return "Loading...";
+  if (error) return "An error has occurred: " + error;
 
-    </Box>
-  );
+  return <Box>Results: {JSON.stringify(data)}</Box>;
 };

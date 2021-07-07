@@ -1,20 +1,16 @@
 import React from "react";
-import { useRouter } from "next/router";
-import { Container } from "../../../components/Container";
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Avatar, Box, Stack, HStack, Text } from "@chakra-ui/react";
 import {
   formatDistanceToNow,
   formatDistanceToNowStrict,
   parseISO,
 } from "date-fns";
-
-// import { DATA } from "../../../MOCK_DATA";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import SidebarTemplate from "../../../components/templates/Sidebar.Template";
-
 import { useQuery } from "react-query";
-
 import { findComments, getPost } from "../../../lib/dhive";
+import ReactMarkdown from "react-markdown";
+import Image from "next/image";
 
 export async function getServerSideProps(context) {
   console.log("context", context);
@@ -39,8 +35,6 @@ export default function QuestionPage({ post }) {
 }
 
 const Main = (props) => {
-  console.log("props", props);
-
   const metadata = JSON.parse(props.json_metadata);
 
   return (
@@ -56,10 +50,7 @@ const Main = (props) => {
           </Stack>
         </Box>
         <Box id="question__details" w="auto" p={4}>
-          {
-            // metadata.format === "markdown" ? <MDEditor.Markdown source={props.body} /> : props.body
-            props.body
-          }
+          <ReactMarkdown>{props.body}</ReactMarkdown>
         </Box>
       </Box>
       <Answers {...props} />
@@ -77,18 +68,20 @@ const TitleSection = (props) => (
         addSuffix: true,
       })}
     </Text>
+    <HStack spacing={2} alignItems="center">
+      <Avatar
+        src={`https://images.hive.blog/u/${props.root_author}/avatar/small`}
+      />
+      <Text>{props.root_author}</Text>
+    </HStack>
   </Stack>
 );
 
 const Answers = (post) => {
   const { data, isLoading, error } = useQuery(
     "answers",
-    () =>
-      findComments(
-        post.author,
-        post.permlink
-      ),
-    { initialData: post }
+    () => findComments(post.author, post.permlink)
+    // { initialData: post }
   );
 
   if (isLoading) return "Loading...";
@@ -97,13 +90,14 @@ const Answers = (post) => {
 
   return (
     <Stack spacing={4}>
-      {data.map((answer) => (
-        <Box bg="gray.100" p={4}>
-          <Text>{answer.author}</Text>
-          <Text>{answer.body}</Text>
-        </Box>
-      ))}
-      {/* {JSON.stringify(data[0])} */}
+      {data &&
+        data.map((answer) => (
+          <Box bg="gray.100" p={4}>
+            <Text>{answer.author}</Text>
+            <ReactMarkdown>{answer.body}</ReactMarkdown>
+          </Box>
+        ))}
+      {/* {JSON.stringify(data)} */}
     </Stack>
   );
 };
