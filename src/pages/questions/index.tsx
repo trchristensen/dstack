@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { isError, useInfiniteQuery, useQuery } from "react-query";
 import QuestionCardSkeleton, { HalfQuestionCardSkeleton } from "../../components/QuestionCardSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
+import FilterBar from "../../components/FilterBar";
 
 export default function QuestionsPage() {
   return (
@@ -24,12 +25,18 @@ export default function QuestionsPage() {
 const Main = () => {
   const router = useRouter();
 
+    const [filter, setFilter] = React.useState("created");
+    const handleFilterClick = (e) => {
+       setFilter(e.target.value);
+      return () => refetch();
+    };
+
   const fetchProjects = ({ pageParam = null }) =>
     axios("/api/get-ranked-posts?", {
       params: {
         cursor: pageParam,
-        sort: "trending",
-        tag: "cooking",
+        sort: filter,
+        tag: "crypto",
         observer: "ipeeyay",
       },
     });
@@ -40,11 +47,14 @@ const Main = () => {
     fetchNextPage,
     hasNextPage,
     isFetching,
+    refetch,
     isFetchingNextPage,
     status,
   } = useInfiniteQuery("projects", fetchProjects, {
     getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
+
+
 
   return (
     <Fragment>
@@ -55,12 +65,10 @@ const Main = () => {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text as="h2" fontSize="xl">
-          Explore Our Questions
-        </Text>
+        <FilterBar handleClick={handleFilterClick} />
         <Button
           onClick={() => router.push("/questions/ask")}
-          bg="red.700"
+          bg="blue.500"
           color="white"
         >
           Ask Question

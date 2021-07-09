@@ -16,6 +16,7 @@ import Link from "next/link";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
 import { NAV_ITEMS } from '../../constants'
+import { RiHome2Fill, RiHome2Line, RiPriceTag2Fill, RiPriceTag2Line, RiQuestionAnswerFill, RiQuestionAnswerLine, RiUser2Fill, RiUserFollowFill, RiUserFollowLine } from "react-icons/ri";
 
 const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
   return (
@@ -34,7 +35,8 @@ const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
         >
           <Box
             id="left-sidebar"
-            w="164px"
+            // w="164px"
+            w="80px"
             d="flex"
             alignItems="flex-start"
             flexShrink={0}
@@ -52,8 +54,9 @@ const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
             flexDirection="column"
             alignItems="stretch"
             borderLeftWidth={1}
+            // borderRightWidth={1}
             pt={6}
-            
+            // bg="gray.100"
           >
             {titleSection && (
               <Box w="100%" borderBottomWidth={1} px={4}>
@@ -65,11 +68,15 @@ const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
               <Box w="100%">{main}</Box>
               <Box
                 w="300px"
-                  // bg="gray.100"
+                // bg="gray.100"
                 flexShrink={0}
                 display={["none", "none", "none", "block"]}
+                // pr={4}
               >
-                {/* <Box>Right Sidebar</Box> */}
+                <Stack spacing={4}>
+                  <Box height="400px" rounded="md" bg="gray.100"></Box>
+                  <Box height="400px" rounded="md" bg="gray.100"></Box>
+                </Stack>
               </Box>
             </Box>
           </Box>
@@ -99,10 +106,24 @@ const Header = () => {
 
 const LeftSideBar = () => {
   return (
-    <Box w="100%">
-      {NAV_ITEMS.map((link, idx) => (
+    <Box w="100%" pr={4} pt={2}>
+      {/* {NAV_ITEMS.map((link, idx) => (
         <LinkItem key={idx} {...link} />
-      ))}
+      ))} */}
+      <Stack spacing={5} color="gray.600">
+        <Box d="flex" justifyContent="flex-end" title="Home">
+          <Icon fontSize="3xl" as={RiHome2Line} />
+        </Box>
+        <Box d="flex" justifyContent="flex-end" title="Questions">
+          <Icon fontSize="3xl" as={RiQuestionAnswerLine} />
+        </Box>
+        <Box d="flex" justifyContent="flex-end" title="Tags">
+          <Icon fontSize="3xl" as={RiPriceTag2Line} />
+        </Box>
+        <Box d="flex" justifyContent="flex-end" title="Users">
+          <Icon fontSize="3xl" as={RiUserFollowLine} />
+        </Box>
+      </Stack>
     </Box>
   );
 };
