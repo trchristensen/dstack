@@ -11,11 +11,13 @@ import {
 } from "react-icons/ri";
 import { formatDistanceToNow, formatDistanceToNowStrict, parseISO } from "date-fns";
 import { Router } from "next/router";
-import { convertDateTimeToUTC } from "../utils";
+// import { convertDateTimeToUTC } from "../utils";
 import { zonedTimeToUtc, utcToZonedTime, format } from "date-fns-tz";
+import ReactMarkdown from "react-markdown";
 
 const QuestionCard = (props) => {
-  const metadata = JSON.parse(props.json_metadata);
+  // const metadata = JSON.parse(props.json_metadata);
+  const metadata = props.json_metadata;
 
 
   return (
@@ -127,15 +129,15 @@ const QuestionCard = (props) => {
               lineHeight="1.3"
               mb={1}
               noOfLines={1}
+              title={props.title}
             >
-              {/* {props.title.length > 70 ? props.title.slice(0, 70) + '...' : props.title} */}
               {props.title}
             </Text>
           </a>
         </Link>
-        {/* <Text as="div" fontSize="sm">
-          {props.body.slice(0, 198)} ...
-        </Text> */}
+        <Text maxW={["100%", "100%", "540px"]} fontSize="sm" noOfLines={2}>
+          {props.body}
+        </Text>
         <Box
           id="lower-details"
           d="flex"
@@ -144,7 +146,7 @@ const QuestionCard = (props) => {
           flexDir={["column", "column", "row"]}
         >
           <HStack spacing={"6px"} mt={2} flexWrap="wrap">
-            {metadata.tags.slice(0, 4).map((tag) => (
+            {metadata.tags.slice(0, 5).map((tag) => (
               <Link key={tag} href={`/tags/${tag}`}>
                 <a>
                   <Tag
@@ -160,7 +162,7 @@ const QuestionCard = (props) => {
                 </a>
               </Link>
             ))}
-            {metadata.tags.length > 5 && (
+            {metadata.tags.length > 6 && (
               <Link href="#">
                 <a>
                   <Tag
@@ -193,6 +195,12 @@ const QuestionCard = (props) => {
               justifyContent="flex-end"
               flexShrink={0}
             >
+              <Box>
+                <Avatar
+                  src={`https://images.hive.blog/u/${props.author}/avatar/small`}
+                  size="sm"
+                />
+              </Box>
               <Link href="#">
                 <a>
                   <Text color="gray.600" fontSize="xs" as="span">

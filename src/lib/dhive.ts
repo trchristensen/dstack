@@ -73,13 +73,14 @@ export const findComments = async (author, permlink) => {
 export const getPosts = async () => {
 
   const query = {
-    // tag: "dstack",
-    tag: "travel",
+    tag: "dstack",
+    // tag: "california",
     limit: 100,
+    truncate_body: 180,
   };
 
   // trending, hot, created, promoted
-  const filter = "hot";
+  const filter = "created";
 
   const data = client.database
     .getDiscussions(filter, query)

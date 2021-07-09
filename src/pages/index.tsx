@@ -1,14 +1,15 @@
 import React, { Fragment } from "react";
 import { DATA } from "../MOCK_DATA.js";
 import QuestionCard from "../components/QuestionCard";
-import { Box, Button, Text } from "@chakra-ui/react";
+import { Box, Button, Skeleton, Text } from "@chakra-ui/react";
 import QuestionComposer from "../components/QuestionComposer";
 import SidebarTemplate from "../components/templates/Sidebar.Template";
 import { useRouter } from "next/router";
 
-import { useQuery } from 'react-query';
+import { useQuery } from "react-query";
 
-import { getPosts } from '../lib/dhive';
+import { getPosts } from "../lib/dhive";
+import QuestionCardSkeleton from "../components/QuestionCardSkeleton";
 
 export default function Index() {
   return (
@@ -23,16 +24,15 @@ export default function Index() {
 }
 
 const Main = () => {
-
   const router = useRouter();
 
   const { isLoading, error, data, isFetching } = useQuery("questions", () =>
     getPosts()
   );
 
-  if (isLoading) return "Loading...";
+  // if (isLoading) return "Loading...";
 
-  if (error) return "An error has occurred: " + error.message;
+  // if (error) return "An error has occurred: " + error.message;
 
   return (
     <Fragment>
@@ -54,14 +54,19 @@ const Main = () => {
           Ask Question
         </Button>
       </Box>
+      {isLoading ? (
+        <>
+          <QuestionCardSkeleton />
+          <QuestionCardSkeleton />
+          <QuestionCardSkeleton />
+          <QuestionCardSkeleton />
+          <QuestionCardSkeleton />
+          <QuestionCardSkeleton />
+        </>
+      ) : data ? (
+        data.map((post, idx) => <QuestionCard key={idx} {...post} />)
+      ) : null}
       
-      { data && data.map((post, idx) => {
-
-        return (
-          <QuestionCard key={idx} {...post} />
-        );
-      })}
     </Fragment>
   );
 };
-

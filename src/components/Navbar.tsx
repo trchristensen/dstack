@@ -24,6 +24,7 @@ import {
   FormControl,
   FormLabel,
   Checkbox,
+  Avatar,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -47,6 +48,7 @@ import { SITE_NAME, NAV_ITEMS } from "../constants";
 import keychainIcon from "../public/keychain.6846c271.png";
 import { AuthContext } from "../lib/AuthProvider";
 import { signinWithHiveKeychain } from "../lib/AuthProvider";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
@@ -88,7 +90,7 @@ export default function WithSubnavigation() {
           />
         </Flex>
         <Link href="/">
-          <a>
+          {/* <a> */}
             <Text
               textAlign={useBreakpointValue({ base: "center", md: "left" })}
               fontFamily={"heading"}
@@ -98,7 +100,7 @@ export default function WithSubnavigation() {
             >
               {SITE_NAME}
             </Text>
-          </a>
+          {/* </a> */}
         </Link>
 
         <Flex
@@ -214,7 +216,15 @@ const Login = () => {
   return (
     <React.Fragment>
       {user ? (
-        user
+        <>
+        <Avatar
+          src={`https://images.hive.blog/u/${user}/avatar/small`}
+          size="sm"
+          width="32px"
+          height="32px"
+        />
+        <Button variant="ghost" onClick={() => logout()}><Icon as={RiLogoutBoxLine} /></Button>
+        </>
       ) : (
         <Button
           display={{ base: "none", md: "inline-flex" }}

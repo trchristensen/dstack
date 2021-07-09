@@ -17,9 +17,16 @@ export const getDiscussion = async () => {
 };
 
 
-export const getContent = (author, permlink) => {
+export const getContent = async (author, permlink) => {
     hive.api.getContent(author, permlink, function (err, result) {
       console.log(err, result);
     });
+}
 
+export const getTrendingTags = async () => {
+  const data = await hive.api
+  .callAsync("condenser_api.get_trending_tags", [null]);
+  console.log(typeof data)
+  console.log(data)
+  return data;
 }

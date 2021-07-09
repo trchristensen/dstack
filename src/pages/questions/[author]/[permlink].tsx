@@ -10,7 +10,10 @@ import SidebarTemplate from "../../../components/templates/Sidebar.Template";
 import { useQuery } from "react-query";
 import { findComments, getPost } from "../../../lib/dhive";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from 'rehype-raw'
 import Image from "next/image";
+
+
 
 export async function getServerSideProps(context) {
   console.log("context", context);
@@ -49,8 +52,8 @@ const Main = (props) => {
             <TriangleDownIcon h={"40px"} w={"40px"} />
           </Stack>
         </Box>
-        <Box id="question__details" w="auto" p={4}>
-          <ReactMarkdown>{props.body}</ReactMarkdown>
+        <Box id="question__details" w="auto" p={4} maxW="600px">
+          <ReactMarkdown children={props.body} />
         </Box>
       </Box>
       <Answers {...props} />
@@ -91,8 +94,8 @@ const Answers = (post) => {
   return (
     <Stack spacing={4}>
       {data &&
-        data.map((answer) => (
-          <Box bg="gray.100" p={4}>
+        data.map((answer, idx) => (
+          <Box key={idx} bg="gray.100" p={4}>
             <Text>{answer.author}</Text>
             <ReactMarkdown>{answer.body}</ReactMarkdown>
           </Box>
