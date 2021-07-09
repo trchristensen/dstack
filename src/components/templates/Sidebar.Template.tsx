@@ -115,8 +115,8 @@ const LinkItem = (props) => {
       role={"group"}
       display={"block"}
       p={2}
-      bg={router.pathname === props.href ? `orange.50` : ``}
-      _hover={{ bg: useColorModeValue("orange.50", "gray.900") }}
+      bg={router.pathname === props.href ? `gray.500` : ``}
+      _hover={{ bg: useColorModeValue("gray.500", "gray.900") }}
     >
       <Link href={props.href}>
         <a>
@@ -125,9 +125,9 @@ const LinkItem = (props) => {
               <Text
                 as="span"
                 transition={"all .3s ease"}
-                _groupHover={{ color: "orange.400" }}
+                _groupHover={{ color: "gray.100" }}
                 color={
-                  router.pathname === props.href ? `orange.400` : `initial`
+                  router.pathname === props.href ? `gray.100` : `initial`
                 }
                 //   fontWeight={500}
               >
@@ -152,7 +152,7 @@ const LinkItem = (props) => {
               align={"center"}
               flex={1}
             >
-              <Icon color={"orange.400"} w={5} h={5} as={ChevronRightIcon} />
+              <Icon color={"gray.400"} w={5} h={5} as={ChevronRightIcon} />
             </Flex>
           </Stack>
         </a>

@@ -91,15 +91,15 @@ export default function WithSubnavigation() {
         </Flex>
         <Link href="/">
           {/* <a> */}
-            <Text
-              textAlign={useBreakpointValue({ base: "center", md: "left" })}
-              fontFamily={"heading"}
-              color={useColorModeValue("gray.800", "white")}
-              fontWeight="600"
-              fontSize="lg"
-            >
-              {SITE_NAME}
-            </Text>
+          <Text
+            textAlign={useBreakpointValue({ base: "center", md: "left" })}
+            fontFamily={"heading"}
+            color={useColorModeValue("gray.800", "white")}
+            fontWeight="600"
+            fontSize="lg"
+          >
+            {SITE_NAME}
+          </Text>
           {/* </a> */}
         </Link>
 
@@ -210,42 +210,44 @@ const Login = () => {
   const color = { dark: "black", light: "white" };
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const { user, setUser } = React.useContext(AuthContext);
+  // const { user, setUser } = React.useContext(AuthContext);
   const [input, setInput] = React.useState("");
 
   return (
     <React.Fragment>
-      {user ? (
-        <>
-        <Avatar
+      {/* { */}
+      {/* // user ?  (*/}
+      <>
+        {/* <Avatar
           src={`https://images.hive.blog/u/${user}/avatar/small`}
           size="sm"
           width="32px"
           height="32px"
-        />
-        <Button variant="ghost" ><Icon as={RiLogoutBoxLine} /></Button>
-        </>
-      ) : (
-        <Button
-          display={{ base: "none", md: "inline-flex" }}
-          fontSize={"sm"}
-          fontWeight={600}
-          // color={"white"}
-          // bg={"black"}
-          href={"#"}
-          _hover={{
-            bg: "orange.500",
-          }}
-          bg={bgColor[colorMode]}
-          color={color[colorMode]}
-          minW="130px"
-          borderRadius="full"
-          onClick={onOpen}
-        >
-          <Text ml={2}>Connect</Text>
+        /> */}
+        <Button variant="ghost">
+          <Icon as={RiLogoutBoxLine} />
         </Button>
-      )}
-
+      </>
+      {/* ) : ( */}
+      <Button
+        display={{ base: "none", md: "inline-flex" }}
+        fontSize={"sm"}
+        fontWeight={600}
+        // color={"white"}
+        // bg={"black"}
+        href={"#"}
+        _hover={{
+          bg: "gray.500",
+        }}
+        bg={bgColor[colorMode]}
+        color={color[colorMode]}
+        minW="130px"
+        borderRadius="full"
+        onClick={onOpen}
+      >
+        <Text ml={2}>Connect</Text>
+      </Button>
+      {/* // )} */}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -265,10 +267,10 @@ const Login = () => {
                     bg: "black",
                   }}
                   // onClick={() => alert('hello')}
-                  onClick={() => {
-                    signinWithHiveKeychain(input, "/");
-                    onClose();
-                  }}
+                  // onClick={() => {
+                  //   signinWithHiveKeychain(input, "/");
+                  //   onClose();
+                  // }}
                 >
                   Login with Hive Keychain
                   {/* <Image

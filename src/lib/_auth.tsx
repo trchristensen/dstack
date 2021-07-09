@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import Router from "next/router";
 
-declare global {
-  interface Window {
-    hive_keychain: any;
-  }
-}
+// declare global {
+//   interface Window {
+//     hive_keychain: any;
+//   }
+// }
 
 
 const authContext = createContext({});

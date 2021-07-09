@@ -123,7 +123,7 @@ const QuestionCard = (props) => {
         <Link href={`/questions/${props.author}/${props.permlink}`}>
           <a>
             <Text
-              color="blue.500"
+              color="gray.700"
               as="h3"
               fontSize={["md", "md", "lg"]}
               lineHeight="1.3"

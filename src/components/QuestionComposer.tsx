@@ -99,7 +99,7 @@ export default function QuestionComposer() {
         </FormControl>
         <FormControl>
           <Button
-            bg="orange.500"
+            bg="gray.500"
             color="white"
             onClick={(e) => handleSubmit(e)}
           >
