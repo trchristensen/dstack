@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import Router from "next/router";
 
+declare global {
+  interface Window {
+    hive_keychain: any;
+  }
+}
+
+
 const authContext = createContext({});
 
 export function AuthProvider({ children }) {
@@ -38,6 +45,8 @@ function useHiveKeychainAuth() {
     setLoading(true);
     // if(username.length == 0) return;
 
+    let time = (new Date().getTime() / 1000, 10)
+
     if(typeof window !== 'undefined') {
         console.log("signinWithHiveKeychain");
         const keychain = window.hive_keychain;
@@ -45,7 +54,7 @@ function useHiveKeychainAuth() {
         const messageObj = {
           signed_message: signedMessageObj,
           player: username,
-          timestamp: parseInt(new Date().getTime() / 1000, 10),
+          // timestamp: time,
         };
         keychain.requestSignBuffer(
           username,

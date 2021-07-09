@@ -80,16 +80,16 @@ const TitleSection = (props) => (
   </Stack>
 );
 
-const Answers = (post) => {
+const Answers = (post:any)  => {
   const { data, isLoading, error } = useQuery(
     "answers",
     () => findComments(post.author, post.permlink)
     // { initialData: post }
   );
 
-  if (isLoading) return "Loading...";
+  if (isLoading) return <Text>"Loading...";</Text>
 
-  if (error) return "An error has occurred: " + error.message;
+  if (error) return <Text>An error has occurred: {JSON.stringify(error)}</Text>
 
   return (
     <Stack spacing={4}>

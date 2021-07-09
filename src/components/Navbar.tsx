@@ -151,7 +151,7 @@ const MobileNav = () => {
   );
 };
 
-const MobileNavItem = ({ label, children, href }: NavItem) => {
+const MobileNavItem = ({ label, children, href }: any) => {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
@@ -223,7 +223,7 @@ const Login = () => {
           width="32px"
           height="32px"
         />
-        <Button variant="ghost" onClick={() => logout()}><Icon as={RiLogoutBoxLine} /></Button>
+        <Button variant="ghost" ><Icon as={RiLogoutBoxLine} /></Button>
         </>
       ) : (
         <Button

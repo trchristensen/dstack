@@ -10,12 +10,10 @@ const client = new Client([
   "https://api.openhive.network",
 ]);
 
-  let opts = {};
-
-  //connect to production server
-  opts.addressPrefix = "STM";
-  opts.chainId =
-    "beeab0de00000000000000000000000000000000000000000000000000000000";
+  let opts = {
+    addressPrefix: "STM",
+    chainId: "beeab0de00000000000000000000000000000000000000000000000000000000",
+  };
 
 // end dhive config
 

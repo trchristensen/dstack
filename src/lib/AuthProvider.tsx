@@ -35,6 +35,8 @@ export const signinWithHiveKeychain = async (username, redirect) => {
   // if(username.length == 0) return;
   console.log(username)
 
+  let time = (new Date().getTime() / 1000, 10);
+
   if (typeof window !== "undefined") {
     
     const keychain = window.hive_keychain;
@@ -42,7 +44,7 @@ export const signinWithHiveKeychain = async (username, redirect) => {
     const messageObj = {
       signed_message: signedMessageObj,
       player: username,
-      timestamp: parseInt(new Date().getTime() / 1000, 10),
+      // timestamp: time,
     };
     keychain.requestSignBuffer(
       username,

@@ -25,13 +25,13 @@ export default function Projects() {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery("projects", fetchProjects, {
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    // getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
 
   status === "loading" ? (
     <p>Loading...</p>
   ) : status === "error" ? (
-    <p>Error: {error.message}</p>
+    <p>Error: {JSON.stringify(error)}</p>
   ) : null;
 
 

@@ -43,7 +43,7 @@ const Main = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery("projects", fetchProjects, {
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    // getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
   });
 
   return (
@@ -77,7 +77,7 @@ const Main = () => {
           <QuestionCardSkeleton />
         </>
       ) : status === "error" ? (
-        <Text>An error has occurred: {error.message}</Text>
+        <Text>An error has occurred: {JSON.stringify(error)}</Text>
       ) : data ? (
         <InfiniteScroll
           dataLength={data ? data.pages.length : 1}
