@@ -22,7 +22,7 @@ export default QuestionCardSkeleton;
 
 export const HalfQuestionCardSkeleton = () => {
   return (
-    <Box padding="6" pb={0} bg="white" d="flex" flexDirection="row">
+    <Box padding="6" pt={2} pb={0} bg="white" d="flex" flexDirection="row">
       <Box w="100px">
         <SkeletonText mt="4" noOfLines={1} spacing="4" />
         <SkeletonText mt="4" noOfLines={1} spacing="4" />
