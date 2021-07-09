@@ -10,7 +10,7 @@ import {
   RiRocketLine,
 } from "react-icons/ri";
 
-import { FaExpandAlt } from "react-icons/fa";
+import { FaExpandAlt, FaSuperpowers } from "react-icons/fa";
 import {
   formatDistanceToNow,
   formatDistanceToNowStrict,
@@ -214,7 +214,6 @@ const QuestionCard = (props) => {
                   // fontSize=".95rem"
                   alignItems="center"
                 >
-                  {/* <Icon as={RiStackLine} /> */}
                   <Icon as={RiRocketLine} />
 
                   <Text as="span">
@@ -240,7 +239,7 @@ const QuestionCard = (props) => {
                   alignItems="center"
                 >
                   <HiveIcon width="20" height="20w" />
-                  <Text as="span">{props.payout}</Text>
+                  <Text title={`${props.payout} HBD payout`} as="span">{props.payout}</Text>
                 </Stack>
               </Box>
               <Box
@@ -273,7 +272,7 @@ const QuestionCard = (props) => {
                           {props.author}
                         </Text>
                         <Text color="gray.600" fontSize="sm" as="span">
-                          {" ◦ "}
+                          <Icon ml={1} mr={1} as={FaSuperpowers} />
                           {props.author_reputation}
                         </Text>
                       </a>

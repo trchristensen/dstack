@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 import Router from "next/router";
 
-// declare global {
-//   interface Window {
-//     hive_keychain: any;
-//   }
-// }
+declare global {
+  interface Window {
+    hive_keychain: any;
+  }
+}
 
 
 const authContext = createContext({});
@@ -80,11 +80,6 @@ function useHiveKeychainAuth() {
     localStorage.removeItem("currentUser");
     Router.push("/");
   };
-
-  // useEffect(() => {
-  //   const unsubscribe = firebase.auth().onIdTokenChanged(handleUser);
-  //   return () => unsubscribe();
-  // }, []);
 
   return {
     user,

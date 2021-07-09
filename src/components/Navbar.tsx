@@ -210,25 +210,25 @@ const Login = () => {
   const color = { dark: "black", light: "white" };
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // const { user, setUser } = React.useContext(AuthContext);
+  const { user, setUser } = React.useContext(AuthContext);
   const [input, setInput] = React.useState("");
 
   return (
     <React.Fragment>
-      {/* { */}
-      {/* // user ?  (*/}
+      {
+      user ?  (
       <>
-        {/* <Avatar
+        <Avatar
           src={`https://images.hive.blog/u/${user}/avatar/small`}
           size="sm"
           width="32px"
           height="32px"
-        /> */}
+        />
         <Button variant="ghost">
           <Icon as={RiLogoutBoxLine} />
         </Button>
       </>
-      {/* ) : ( */}
+       ) : (
       <Button
         display={{ base: "none", md: "inline-flex" }}
         fontSize={"sm"}
@@ -247,7 +247,7 @@ const Login = () => {
       >
         <Text ml={2}>Connect</Text>
       </Button>
-      {/* // )} */}
+       )} 
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -267,10 +267,10 @@ const Login = () => {
                     bg: "black",
                   }}
                   // onClick={() => alert('hello')}
-                  // onClick={() => {
-                  //   signinWithHiveKeychain(input, "/");
-                  //   onClose();
-                  // }}
+                  onClick={() => {
+                    signinWithHiveKeychain(input, "/");
+                    onClose();
+                  }}
                 >
                   Login with Hive Keychain
                   {/* <Image
