@@ -1,7 +1,6 @@
 import React from "react";
 import { Avatar, Box, Stack, HStack, Text } from "@chakra-ui/react";
 import {
-  formatDistanceToNow,
   formatDistanceToNowStrict,
   parseISO,
 } from "date-fns";
@@ -10,7 +9,6 @@ import SidebarTemplate from "../../../components/templates/Sidebar.Template";
 import { useQuery } from "react-query";
 import { findComments, getPost } from "../../../lib/dhive";
 import ReactMarkdown from "react-markdown";
-import rehypeRaw from 'rehype-raw'
 import Image from "next/image";
 
 
