@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Navbar";
-import Footer from "../Footer";
+// import Footer from "../Footer";
 import { Container } from "../Container";
 import {
   useColorMode,
@@ -45,7 +45,7 @@ export default function ({ main }) {
         </Box>
       </Container>
 
-      <Footer />
+      {/* <Footer /> */}
       <DarkModeSwitch />
     </React.Fragment>
   );

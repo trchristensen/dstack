@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../Navbar";
-import Footer from "../Footer";
+// import Footer from "../Footer";
 import { Container } from "../Container";
 import {
   useColorMode,
@@ -76,7 +76,7 @@ const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
         </Box>
       </Container>
 
-      <Footer />
+      {/* <Footer /> */}
       <DarkModeSwitch />
     </React.Fragment>
   );
