@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa";
 import { ReactNode } from "react";
-import { GETFULLYEAR, SITE_NAME } from "../constants";
+import {SITE_NAME } from "../constants";
 
 const SocialButton = ({
   children,

@@ -128,7 +128,7 @@ const QuestionCard = (props) => {
               fontSize={["md", "md", "lg"]}
               lineHeight="1.3"
               mb={1}
-              noOfLines={1}
+              noOfLines={2}
               title={props.title}
             >
               {props.title}
@@ -226,11 +226,11 @@ const QuestionCard = (props) => {
                   flexShrink={0}
                   float="right"
                 >
-                  {props.last_update == props.created
+                  {props.updated == props.created
                     ? `created `
-                    : `modified `}
+                    : `updated `}
 
-                  {props.last_update}
+                  {props.updated}
                 </Text>
               </Box>
             </Stack>
