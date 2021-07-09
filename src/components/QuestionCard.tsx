@@ -135,9 +135,9 @@ const QuestionCard = (props) => {
             </Text>
           </a>
         </Link>
-        <Text maxW={["100%", "100%", "540px"]} fontSize="sm" noOfLines={2}>
+        {/* <Text maxW={["100%", "100%", "540px"]} fontSize="sm" noOfLines={2}>
           {props.body}
-        </Text>
+        </Text> */}
         <Box
           id="lower-details"
           d="flex"
