@@ -9,15 +9,23 @@ import { isError, useInfiniteQuery, useQuery } from "react-query";
 import QuestionCardSkeleton, { HalfQuestionCardSkeleton } from "../../components/QuestionCardSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import FilterBar from "../../components/FilterBar";
+import TwoColumnTemplate from "../../components/templates/TwoColumn.Template";
 
 export default function QuestionsPage() {
   return (
+    // <React.Fragment>
+    //   <SidebarTemplate
+    //     main={<Main />}
+    //     // leftSide={null}
+    //     // rightSide={null}
+    //   ></SidebarTemplate>
+    // </React.Fragment>
     <React.Fragment>
-      <SidebarTemplate
+      <TwoColumnTemplate
         main={<Main />}
         // leftSide={null}
         // rightSide={null}
-      ></SidebarTemplate>
+      ></TwoColumnTemplate>
     </React.Fragment>
   );
 }

@@ -9,6 +9,8 @@ import {
   RiStackLine,
   RiRocketLine,
 } from "react-icons/ri";
+
+import { FaExpandAlt } from "react-icons/fa"
 import { formatDistanceToNow, formatDistanceToNowStrict, parseISO } from "date-fns";
 import { Router } from "next/router";
 // import { convertDateTimeToUTC } from "../utils";
@@ -18,7 +20,6 @@ import ReactMarkdown from "react-markdown";
 const QuestionCard = (props) => {
   // const metadata = JSON.parse(props.json_metadata);
   const metadata = props.json_metadata;
-
 
   return (
     <Box
@@ -45,7 +46,7 @@ const QuestionCard = (props) => {
           <Link href={`/questions/${props.author}/${props.permlink}`}>
             <a>
               <Text
-                color="gray.600"
+                color="gray.700"
                 as="h3"
                 fontSize={["md", "md", "lg"]}
                 lineHeight="1.3"
@@ -69,7 +70,7 @@ const QuestionCard = (props) => {
             // flexDir={["column", "column", "row"]}
             flexDir="column"
           >
-            <HStack spacing={1} mt={1} mb={2} flexWrap="wrap">
+            <HStack spacing={1} mt={1} mb={4} flexWrap="wrap">
               {metadata.tags.slice(0, 9).map((tag) => (
                 <Link key={tag} href={`/tags/${tag}`}>
                   <a>
@@ -116,9 +117,9 @@ const QuestionCard = (props) => {
                 flexDirection="row"
                 justifyContent="flex-center"
                 paddingRight={2}
+                fontSize="20px"
               >
                 <Stack
-                  color="gray.500"
                   textAlign="center"
                   w="auto"
                   rounded="md"
@@ -130,18 +131,35 @@ const QuestionCard = (props) => {
                   pb={0}
                   spacing={1}
                   justifyContent="flex-end"
-                  fontSize="18px"
                   // direction={["row", "row", "column"]}
                   direction="row"
                   alignItems="center"
                 >
-                  <Text lineHeight="1" fontSize="md" as="span">
-                    <Icon as={RiQuestionAnswerLine} />
-                  </Text>
+                  <Box borderRightWidth={1} pr={4} pb={1} pl={2}>
+                    <Icon color="gray.500" as={FaExpandAlt} />
+                  </Box>
+                </Stack>
+                <Stack
+                  textAlign="center"
+                  w="auto"
+                  rounded="md"
+                  px={0}
+                  py={2}
+                  pt={0}
+                  mr={4}
+                  mb={0}
+                  pb={0}
+                  spacing={1}
+                  justifyContent="flex-end"
+                  // direction={["row", "row", "column"]}
+                  direction="row"
+                  alignItems="center"
+                >
+                  <Icon as={RiQuestionAnswerLine} />
+
                   <Text as="span">{props.children}</Text>
                 </Stack>
                 <Stack
-                  color="gray.500"
                   textAlign="center"
                   w="auto"
                   rounded="md"
@@ -153,19 +171,16 @@ const QuestionCard = (props) => {
                   pb={0}
                   spacing={1}
                   justifyContent="flex-end"
-                  fontSize="18px"
                   // direction={["row", "row", "column"]}
                   direction="row"
                   alignItems="center"
                 >
-                  <Text lineHeight="1" fontSize="md" as="span">
-                    <Icon as={RiHeartLine} />
-                  </Text>
+                  <Icon as={RiHeartLine} />
+
                   <Text as="span">{props.active_votes.length}</Text>
                 </Stack>
 
                 <Stack
-                  color="gray.500"
                   textAlign="center"
                   w="auto"
                   rounded="md"
@@ -177,16 +192,14 @@ const QuestionCard = (props) => {
                   pb={0}
                   spacing={1}
                   justifyContent="flex-end"
-                  fontSize="18px"
                   // direction={["row", "row", "column"]}
                   direction="row"
                   // fontSize=".95rem"
                   alignItems="center"
                 >
-                  <Text lineHeight="1" fontSize="md" as="span">
-                    {/* <Icon as={RiStackLine} /> */}
-                    <Icon as={RiRocketLine} />
-                  </Text>
+                  {/* <Icon as={RiStackLine} /> */}
+                  <Icon as={RiRocketLine} />
+
                   <Text as="span">
                     {parseInt(props.promoted) == 0
                       ? "0"
