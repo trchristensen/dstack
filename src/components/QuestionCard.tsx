@@ -10,16 +10,24 @@ import {
   RiRocketLine,
 } from "react-icons/ri";
 
-import { FaExpandAlt } from "react-icons/fa"
-import { formatDistanceToNow, formatDistanceToNowStrict, parseISO } from "date-fns";
+import { FaExpandAlt } from "react-icons/fa";
+import {
+  formatDistanceToNow,
+  formatDistanceToNowStrict,
+  parseISO,
+} from "date-fns";
 import { Router } from "next/router";
 // import { convertDateTimeToUTC } from "../utils";
 import { zonedTimeToUtc, utcToZonedTime, format } from "date-fns-tz";
 import ReactMarkdown from "react-markdown";
+import Image from "next/image";
+import HiveIcon from "../public/hive-blockchain-hive-logo.svg";
 
 const QuestionCard = (props) => {
   // const metadata = JSON.parse(props.json_metadata);
   const metadata = props.json_metadata;
+
+  const [bodyToggle, setBodyToggle] = React.useState(false)
 
   return (
     <Box
@@ -59,9 +67,11 @@ const QuestionCard = (props) => {
               </Text>
             </a>
           </Link>
-          {/* <Text maxW={["100%", "100%", "540px"]} fontSize="sm" noOfLines={2}>
-          {props.body}
-        </Text> */}
+          <Box style={{ display: bodyToggle ? `flex` : `none` }}>
+            <Text maxW={["100%", "100%", "750px"]} fontSize="sm">
+              {props.body}
+            </Text>
+          </Box>
           <Box
             id="lower-details"
             d="flex"
@@ -135,7 +145,14 @@ const QuestionCard = (props) => {
                   direction="row"
                   alignItems="center"
                 >
-                  <Box borderRightWidth={1} pr={4} pb={1} pl={2}>
+                  <Box
+                    onClick={() => setBodyToggle(!bodyToggle)}
+                    borderRightWidth={1}
+                    pr={4}
+                    pb={1}
+                    pl={2}
+                    cursor="pointer"
+                  >
                     <Icon color="gray.500" as={FaExpandAlt} />
                   </Box>
                 </Stack>
@@ -205,6 +222,25 @@ const QuestionCard = (props) => {
                       ? "0"
                       : props.promoted.slice(0, props.promoted.length - 6)}
                   </Text>
+                </Stack>
+                <Stack
+                  textAlign="center"
+                  w="auto"
+                  rounded="md"
+                  px={0}
+                  py={2}
+                  pt={0}
+                  mr={4}
+                  mb={0}
+                  pb={0}
+                  spacing={1}
+                  justifyContent="flex-end"
+                  // direction={["row", "row", "column"]}
+                  direction="row"
+                  alignItems="center"
+                >
+                  <HiveIcon width="20" height="20w" />
+                  <Text as="span">{props.payout}</Text>
                 </Stack>
               </Box>
               <Box
