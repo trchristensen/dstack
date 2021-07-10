@@ -5,18 +5,17 @@ import { getPosts } from "./dhive";
 export const AuthContext = React.createContext(null);
 
 export const AuthProvider = (props) => {
-  const [user, setUser] = React.useState('');
+  const [user, setUser] = React.useState("");
   const authValue = React.useMemo(() => ({ user, setUser }), [user, setUser]);
 
   useEffect(() => {
-
-    console.log("auth provider user", user);
+    // console.log("auth provider user", user);
     // check localstorage for user
     const storageObject = localStorage.getItem("currentUser");
     if (storageObject) {
       let currentUser = JSON.parse(storageObject).data.username;
-      setUser('');
-      setUser(currentUser)
+      setUser("");
+      setUser(currentUser);
       console.log("grabbed user in local storage");
     } else {
       console.log("no user in localStorage");
@@ -30,23 +29,19 @@ export const AuthProvider = (props) => {
   );
 };
 
-
-export const signinWithHiveKeychain = async (username, redirect) => {
+export const signinWithHiveKeychain = async (username, callback) => {
   // if(username.length == 0) return;
-  console.log(username)
-
   let time = (new Date().getTime() / 1000, 10);
 
   if (typeof window !== "undefined") {
-    
     const keychain = window.hive_keychain;
     const signedMessageObj = { type: "login", app: "ipeeyay" };
     const messageObj = {
       signed_message: signedMessageObj,
-      player: username,
+      username: username,
       // timestamp: time,
     };
-    keychain.requestSignBuffer(
+    const request = keychain.requestSignBuffer(
       username,
       JSON.stringify(messageObj),
       "Posting",
@@ -56,9 +51,14 @@ export const signinWithHiveKeychain = async (username, redirect) => {
         }
         localStorage.setItem("currentUser", JSON.stringify(response));
         //Successfully logged in
-        // Router.push("/");
+
         console.log(response);
+        return callback(response);
       }
     );
   }
 };
+
+export const logOut = () => {
+  localStorage.removeItem("currentUser");
+}

@@ -25,6 +25,10 @@ import {
   FormLabel,
   Checkbox,
   Avatar,
+  MenuButton,
+  Menu,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
 import {
   HamburgerIcon,
@@ -46,7 +50,7 @@ import {
 
 import { SITE_NAME, NAV_ITEMS } from "../constants";
 import keychainIcon from "../public/keychain.6846c271.png";
-import { AuthContext } from "../lib/AuthProvider";
+import { AuthContext, logOut } from "../lib/AuthProvider";
 import { signinWithHiveKeychain } from "../lib/AuthProvider";
 import { RiLogoutBoxLine } from "react-icons/ri";
 
@@ -74,7 +78,7 @@ export default function WithSubnavigation() {
         maxW="1264"
         justifyContent="space-between"
         alignItems="center"
-        px={4}
+        px={2}
       >
         <Link href="/">
           {/* <a> */}
@@ -224,39 +228,60 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      {
-      user ?  (
-      <>
-        <Avatar
-          src={`https://images.hive.blog/u/${user}/avatar/small`}
-          size="sm"
-          width="32px"
-          height="32px"
-        />
-        {/* <Button variant="ghost">
-          <Icon as={RiLogoutBoxLine} />
-        </Button> */}
-      </>
-       ) : (
-      <Button
-        display={{ base: "none", md: "inline-flex" }}
-        fontSize={"sm"}
-        fontWeight={600}
-        // color={"white"}
-        // bg={"black"}
-        href={"#"}
-        _hover={{
-          bg: "gray.500",
-        }}
-        bg={bgColor[colorMode]}
-        color={color[colorMode]}
-        minW="130px"
-        borderRadius="full"
-        onClick={onOpen}
-      >
-        <Text ml={2}>Connect</Text>
-      </Button>
-       )} 
+      {user ? (
+        <>
+          <Menu>
+            {({ isOpen }) => (
+              <>
+                <MenuButton
+                  isActive={isOpen}
+                  as={Button}
+                  rightIcon={<ChevronDownIcon />}
+                  bg="none"
+                  _hover={{ bg: "none" }}
+                  _focus={{ bg: "none" }}
+                >
+                  <Avatar
+                    src={`https://images.hive.blog/u/${user}/avatar/small`}
+                    size="sm"
+                    width="32px"
+                    height="32px"
+                  />
+                </MenuButton>
+                <MenuList>
+                  <MenuItem
+                    onClick={() => {
+                      logOut();
+                      setUser("");
+                    }}
+                  >
+                    Logout {user}
+                  </MenuItem>
+                </MenuList>
+              </>
+            )}
+          </Menu>
+        </>
+      ) : (
+        <Button
+          display={{ base: "none", md: "inline-flex" }}
+          fontSize={"sm"}
+          fontWeight={600}
+          // color={"white"}
+          // bg={"black"}
+          href={"#"}
+          _hover={{
+            bg: "gray.500",
+          }}
+          bg={bgColor[colorMode]}
+          color={color[colorMode]}
+          minW="130px"
+          borderRadius="full"
+          onClick={onOpen}
+        >
+          <Text ml={2}>Connect</Text>
+        </Button>
+      )}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
@@ -277,7 +302,12 @@ const Login = () => {
                   }}
                   // onClick={() => alert('hello')}
                   onClick={() => {
-                    signinWithHiveKeychain(input, "/");
+                    signinWithHiveKeychain(input, (res) => {
+                      if (res.success === true) {
+                        console.log('response...', res )
+                        setUser(res.data.username);
+                      }
+                    });
                     onClose();
                   }}
                 >

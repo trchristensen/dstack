@@ -1,14 +1,7 @@
 import axios from "axios";
 
 const get_hot_discussions = async (req, res) => {
-    // "", 100
-    // or "example", 10
-  const params = {
-    tag: "dstack",
-    start_author: "",
-    start_permlink: "",
-    limit: 100,
-  };
+  const params = [{ tag: "dstack", limit: 20, truncate_body: 0 }];
 
   await axios
     .post("https://api.hive.blog", {
