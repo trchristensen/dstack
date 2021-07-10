@@ -74,23 +74,8 @@ export default function WithSubnavigation() {
         maxW="1264"
         justifyContent="space-between"
         alignItems="center"
+        px={4}
       >
-        <Flex
-          flex={{ base: 1, md: "auto" }}
-          ml={{ base: -2 }}
-          px={4}
-          // display={{ base: "flex", md: "none" }}
-          display="flex"
-        >
-          <IconButton
-            onClick={onToggle}
-            icon={
-              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
-            }
-            variant={"ghost"}
-            aria-label={"Toggle Navigation"}
-          />
-        </Flex>
         <Link href="/">
           {/* <a> */}
           <Text
@@ -121,14 +106,36 @@ export default function WithSubnavigation() {
           </InputGroup>
         </Flex>
 
-        <Stack
-          pl={10}
-          flex={{ base: 1, md: 0 }}
-          justify={"flex-end"}
-          direction={"row"}
-          spacing={6}
-        >
-          <Login />
+        <Stack direction="row" alignItems="center">
+          <Flex
+            flex={{ base: 1, md: "auto" }}
+            ml={{ base: -2 }}
+            px={4}
+            // display={{ base: "flex", md: "none" }}
+            display="flex"
+          >
+            <IconButton
+              onClick={onToggle}
+              icon={
+                isOpen ? (
+                  <CloseIcon w={3} h={3} />
+                ) : (
+                  <HamburgerIcon w={5} h={5} />
+                )
+              }
+              variant={"ghost"}
+              aria-label={"Toggle Navigation"}
+            />
+          </Flex>
+          <Stack
+            pl={10}
+            flex={{ base: 1, md: 0 }}
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
+          >
+            <Login />
+          </Stack>
         </Stack>
       </Flex>
 
@@ -226,9 +233,9 @@ const Login = () => {
           width="32px"
           height="32px"
         />
-        <Button variant="ghost">
+        {/* <Button variant="ghost">
           <Icon as={RiLogoutBoxLine} />
-        </Button>
+        </Button> */}
       </>
        ) : (
       <Button

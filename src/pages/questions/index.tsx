@@ -29,6 +29,7 @@ const Main = () => {
     const [filter, setFilter] = React.useState("created");
     
     React.useEffect(() => {
+     console.log('refetch called') 
       refetch();
     }, [filter])
 

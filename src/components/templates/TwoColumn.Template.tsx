@@ -10,11 +10,14 @@ import {
   Stack,
   Text,
   Icon,
+  Tag,
 } from "@chakra-ui/react";
 import { DarkModeSwitch } from "../DarkModeSwitch";
 import Link from "next/link";
 import { ChevronRightIcon } from "@chakra-ui/icons";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
+import axios from "axios";
 
 export default function ({ main }) {
   return (
@@ -45,10 +48,20 @@ export default function ({ main }) {
               //   bg="pink.100"
               flexShrink={0}
               display={["none", "none", "none", "block"]}
+              pr={4}
             >
               <Stack spacing={4}>
-                <Box height="400px" rounded="md" bg="gray.100"></Box>
-                <Box height="400px" rounded="md" bg="gray.100"></Box>
+                <Box minHeight="400px" rounded="md" bg="gray.100" py={4} px={4}>
+                  <Text fontSize="lg" fontWeight="500">
+                    Trending Tags
+                  </Text>
+                  <TrendingTags />
+                </Box>
+                <Box height="400px" rounded="md" bg="gray.100" py={4} px={4}>
+                  <Text fontSize="lg" fontWeight="500">
+                    Related Questions
+                  </Text>
+                </Box>
               </Stack>
             </Box>
           </Box>
@@ -73,5 +86,34 @@ const Header = () => {
       color={color[colorMode]}
       minHeight="70px"
     ></Box>
+  );
+};
+
+const TrendingTags = () => {
+  const { data, isLoading, isError, error } = useQuery("question", () =>
+    axios("/api/get-trending-tags?", {
+      params: {
+        tag: "dstack",
+        limit: 10,
+      },
+    })
+  );
+
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
+
+  if (isError) {
+    return <span>Cannot load Tags at this time.</span>;
+  }
+
+  return (
+      <Box mt={4}>
+        {/* {JSON.stringify(data.data.tags)} */}
+        {data &&
+          data.data.tags.map((tag) => {
+            return <Tag mr={2} mb={2} w="auto" bg="gray.300">{tag.value}</Tag>
+          })}
+      </Box>
   );
 };
