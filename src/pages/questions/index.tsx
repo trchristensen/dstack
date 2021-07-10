@@ -57,7 +57,7 @@ const Main = () => {
     isFetchingNextPage,
     status,
   } = useInfiniteQuery("projects", fetchProjects, {
-    getNextPageParam: (lastPage, pages) => lastPage.nextCursor,
+    // getNextPageParam: (lastPage, pages) => lastPage;
   });
 
 
