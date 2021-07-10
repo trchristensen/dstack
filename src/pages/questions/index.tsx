@@ -98,7 +98,7 @@ const Main = () => {
             dataLength={data ? data.pages.length : 1}
             next={() =>
               fetchNextPage({
-                pageParam: data?.pages[data.pages.length - 1].data.data.cursor,
+                // pageParam: data?.pages[data.pages.length - 1].data.data.cursor,
               })
             }
             hasMore={
