@@ -1,4 +1,4 @@
-import { Button } from "@chakra-ui/button";
+import { Button, ButtonGroup } from "@chakra-ui/button";
 import { HStack, Text } from "@chakra-ui/layout";
 import React from "react";
 
@@ -15,7 +15,7 @@ const FilterBar = ({ handleClick = null}) => {
 
   return (
     <React.Fragment>
-      <HStack bg="gray.100" rounded="md" spacing={0}>
+      <ButtonGroup isAttached bg="gray.100" rounded="md" spacing={0}>
         <Button
           onClick={(e) => handleClick(e)}
           value="hot"
@@ -55,7 +55,7 @@ const FilterBar = ({ handleClick = null}) => {
         <Button onClick={(e) => handleClick(e)} value="payout" p={2} py={1}>
           Payout
         </Button>
-      </HStack>
+      </ButtonGroup>
     </React.Fragment>
   );
 };

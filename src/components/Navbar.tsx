@@ -78,7 +78,9 @@ export default function WithSubnavigation() {
         <Flex
           flex={{ base: 1, md: "auto" }}
           ml={{ base: -2 }}
-          display={{ base: "flex", md: "none" }}
+          px={4}
+          // display={{ base: "flex", md: "none" }}
+          display="flex"
         >
           <IconButton
             onClick={onToggle}
@@ -142,7 +144,7 @@ const MobileNav = () => {
     <Stack
       bg={useColorModeValue("white", "gray.800")}
       p={4}
-      display={{ md: "none" }}
+      // display={{ md: "none" }}
     >
       {NAV_ITEMS.map((navItem) => (
         <MobileNavItem key={navItem.label} {...navItem} />

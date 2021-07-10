@@ -22,7 +22,14 @@ export default function ({ main }) {
       <Navbar />
       <Container>
         {/* <Header /> */}
-        <Box d="flex" flexDir="row" justifyContent="center" width="100%" maxW="1264px" id="main">
+        <Box
+          d="flex"
+          flexDir="row"
+          justifyContent="center"
+          width="100%"
+          maxW="1264px"
+          id="main"
+        >
           <Box
             id="content"
             d="flex"
@@ -39,7 +46,10 @@ export default function ({ main }) {
               flexShrink={0}
               display={["none", "none", "none", "block"]}
             >
-              <Box>Right Sidebar</Box>
+              <Stack spacing={4}>
+                <Box height="400px" rounded="md" bg="gray.100"></Box>
+                <Box height="400px" rounded="md" bg="gray.100"></Box>
+              </Stack>
             </Box>
           </Box>
         </Box>

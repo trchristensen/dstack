@@ -10,7 +10,8 @@ import {
   RiRocketLine,
 } from "react-icons/ri";
 
-import { FaExpandAlt, FaSuperpowers } from "react-icons/fa";
+import { FaExpandAlt } from "react-icons/fa";
+import { BsLightningFill } from "react-icons/bs"
 import {
   formatDistanceToNow,
   formatDistanceToNowStrict,
@@ -67,10 +68,13 @@ const QuestionCard = (props) => {
               </Text>
             </a>
           </Link>
-          <Box style={{ display: bodyToggle ? `flex` : `none` }}>
-            <Text maxW={["100%", "100%", "750px"]} fontSize="sm">
-              {props.body}
-            </Text>
+          <Box
+            style={{ display: bodyToggle ? `block` : `none` }}
+            flexDir="row"
+            maxW={["100%", "100%", "750px"]}
+            fontSize="sm"
+          >
+            <ReactMarkdown children={props.body} />
           </Box>
           <Box
             id="lower-details"
@@ -81,23 +85,24 @@ const QuestionCard = (props) => {
             flexDir="column"
           >
             <HStack spacing={1} mt={1} mb={4} flexWrap="wrap">
-              {metadata.tags.slice(0, 9).map((tag) => (
-                <Link key={tag} href={`/tags/${tag}`}>
-                  <a>
-                    <Tag
-                      size="md"
-                      key={tag}
-                      variant="ghost"
-                      bg="gray.50"
-                      color="gray.600"
-                      fontWeight="400"
-                    >
-                      {tag}
-                    </Tag>
-                  </a>
-                </Link>
-              ))}
-              {metadata.tags.length > 10 && (
+              {metadata.tags &&
+                metadata.tags.slice(0, 9).map((tag) => (
+                  <Link key={tag} href={`/tags/${tag}`}>
+                    <a>
+                      <Tag
+                        size="md"
+                        key={tag}
+                        variant="ghost"
+                        bg="gray.50"
+                        color="gray.600"
+                        fontWeight="400"
+                      >
+                        {tag}
+                      </Tag>
+                    </a>
+                  </Link>
+                ))}
+              {metadata.tags && metadata.tags.length > 10 && (
                 <Link href="#">
                   <a>
                     <Tag
@@ -239,7 +244,9 @@ const QuestionCard = (props) => {
                   alignItems="center"
                 >
                   <HiveIcon width="20" height="20w" />
-                  <Text title={`${props.payout} HBD payout`} as="span">{props.payout}</Text>
+                  <Text title={`${props.payout} HBD payout`} as="span">
+                    {props.payout}
+                  </Text>
                 </Stack>
               </Box>
               <Box
@@ -272,7 +279,7 @@ const QuestionCard = (props) => {
                           {props.author}
                         </Text>
                         <Text color="gray.600" fontSize="sm" as="span">
-                          <Icon ml={1} mr={1} as={FaSuperpowers} />
+                          <Icon ml={1} mr={1} as={BsLightningFill} />
                           {props.author_reputation}
                         </Text>
                       </a>

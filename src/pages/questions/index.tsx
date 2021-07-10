@@ -13,13 +13,6 @@ import TwoColumnTemplate from "../../components/templates/TwoColumn.Template";
 
 export default function QuestionsPage() {
   return (
-    // <React.Fragment>
-    //   <SidebarTemplate
-    //     main={<Main />}
-    //     // leftSide={null}
-    //     // rightSide={null}
-    //   ></SidebarTemplate>
-    // </React.Fragment>
     <React.Fragment>
       <TwoColumnTemplate
         main={<Main />}
@@ -34,9 +27,13 @@ const Main = () => {
   const router = useRouter();
 
     const [filter, setFilter] = React.useState("created");
+    
+    React.useEffect(() => {
+      refetch();
+    }, [filter])
+
     const handleFilterClick = (e) => {
-       setFilter(e.target.value);
-      return () => refetch();
+      setFilter(e.target.value);
     };
 
   const fetchProjects = ({ pageParam = null }) =>
@@ -46,6 +43,7 @@ const Main = () => {
         sort: filter,
         tag: "crypto",
         observer: "ipeeyay",
+        // truncate_body: 100
       },
     });
 
@@ -97,7 +95,6 @@ const Main = () => {
       ) : data ? (
         <Box>
           <InfiniteScroll
-            // pullDownToRefresh
             dataLength={data ? data.pages.length : 1}
             next={() =>
               fetchNextPage({
