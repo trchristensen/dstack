@@ -110,11 +110,20 @@ export default function WithSubnavigation() {
           </InputGroup>
         </Flex>
 
-        <Stack direction="row" alignItems="center">
+        <Stack direction="row" alignItems="center" spacing={2}>
+          <Stack
+            pl={10}
+            flex={{ base: 1, md: 0 }}
+            justify={"flex-end"}
+            direction={"row"}
+            spacing={6}
+          >
+            <Login />
+          </Stack>
           <Flex
             flex={{ base: 1, md: "auto" }}
             ml={{ base: -2 }}
-            px={4}
+         
             // display={{ base: "flex", md: "none" }}
             display="flex"
           >
@@ -131,15 +140,6 @@ export default function WithSubnavigation() {
               aria-label={"Toggle Navigation"}
             />
           </Flex>
-          <Stack
-            pl={10}
-            flex={{ base: 1, md: 0 }}
-            justify={"flex-end"}
-            direction={"row"}
-            spacing={6}
-          >
-            <Login />
-          </Stack>
         </Stack>
       </Flex>
 

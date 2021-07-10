@@ -2,14 +2,6 @@ import axios from "axios";
 
 const get_ranked_posts = async (req, res) => {
 
-  // 1st query. no start author, permlink. no cursor.
-  
-  // server sends back cursor
-
-  // 2nd query. cursor converted into start params to request new content. cursor should update to new params (from last_author, last_permlink)
-
-
-
   let cursor = '';
   let start_a = '';
   let start_p = '';

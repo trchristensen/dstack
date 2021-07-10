@@ -87,7 +87,7 @@ const QuestionCard = (props) => {
             <HStack spacing={1} mt={1} mb={4} flexWrap="wrap">
               {metadata.tags &&
                 metadata.tags.slice(0, 9).map((tag) => (
-                  <Link key={tag} href={`/tags/${tag}`}>
+                  <Link key={tag} href={`/tags/${tag.replace(/dstack-/g, "")}`}>
                     <a>
                       <Tag
                         size="md"
@@ -97,7 +97,7 @@ const QuestionCard = (props) => {
                         color="gray.600"
                         fontWeight="400"
                       >
-                        {tag}
+                        {tag.replace(/dstack-/g, "")}
                       </Tag>
                     </a>
                   </Link>

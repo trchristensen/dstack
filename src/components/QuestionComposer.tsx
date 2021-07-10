@@ -36,7 +36,8 @@ export default function QuestionComposer() {
     e.preventDefault();
 
     // convert taglist to strings[] instead of objects[]
-    let convertedTags = tags.map(tag => tag.value)
+    let convertedTags = tags.map((tag) => `dstack-${tag.value}`);
+
     console.log(convertedTags)
 
     const payload = {

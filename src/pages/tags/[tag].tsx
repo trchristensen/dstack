@@ -1,48 +1,60 @@
-import React, { Fragment } from "react";
-import axios from "axios";
-import QuestionCard from "../../components/QuestionCard";
-import { Box, Button, Skeleton, Text } from "@chakra-ui/react";
-import QuestionComposer from "../../components/QuestionComposer";
-import SidebarTemplate from "../../components/templates/Sidebar.Template";
-import { useRouter } from "next/router";
-import { isError, useInfiniteQuery, useQuery } from "react-query";
-import QuestionCardSkeleton, { HalfQuestionCardSkeleton } from "../../components/QuestionCardSkeleton";
-import InfiniteScroll from "react-infinite-scroll-component";
-import FilterBar from "../../components/FilterBar";
+import React, {useState, useEffect, Fragment} from 'react';
+import { Box, Button, Text } from "@chakra-ui/react";
 import TwoColumnTemplate from "../../components/templates/TwoColumn.Template";
+import { useRouter } from "next/router";
+import axios from 'axios';
+import { useInfiniteQuery } from 'react-query';
+import QuestionCardSkeleton, { HalfQuestionCardSkeleton } from '../../components/QuestionCardSkeleton';
+import QuestionCard from '../../components/QuestionCard';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import FilterBar from '../../components/FilterBar';
 
-export default function QuestionsPage() {
+
+
+export async function getServerSideProps(context) {
+  console.log("context", context);
+  const tag = context.query.tag
+  
+  return { props: { tag } };
+}
+
+
+
+export default function QuestionPage() {
+
+      const router = useRouter();
+      const { tag } = router.query;
+
   return (
-    <React.Fragment>
-      <TwoColumnTemplate
-        main={<Main />}
-        // leftSide={null}
-        // rightSide={null}
-      ></TwoColumnTemplate>
-    </React.Fragment>
+    <TwoColumnTemplate
+      main={     
+      <Main tag={tag} />
+    }
+    //   titleSection={<TitleSection {...post} header={<div></div>} />}
+    />
   );
 }
 
-const Main = () => {
+const Main = ({tag}) => {
   const router = useRouter();
 
-    const [filter, setFilter] = React.useState("created");
-    
-    React.useEffect(() => {
-     console.log('refetch called') 
-      refetch();
-    }, [filter])
+  const [filter, setFilter] = React.useState("created");
 
-    const handleFilterClick = (e) => {
-      setFilter(e.target.value);
-    };
+  React.useEffect(() => {
+    console.log("refetch called");
+    refetch();
+  }, [filter]);
+
+  const handleFilterClick = (e) => {
+    setFilter(e.target.value);
+  };
 
   const fetchPosts = ({ pageParam = null }) =>
     axios("/api/get-ranked-posts?", {
       params: {
         cursor: pageParam,
         sort: filter,
-        tag: "dstack",
+        tag: 'dstack-' + tag,
         observer: "ipeeyay",
         // truncate_body: 100
       },
@@ -60,8 +72,6 @@ const Main = () => {
   } = useInfiniteQuery("posts", fetchPosts, {
     // getNextPageParam: (lastPage, pages) => lastPage;
   });
-
-
 
   return (
     <Fragment>

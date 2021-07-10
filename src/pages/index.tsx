@@ -12,6 +12,13 @@ import { getPosts } from "../lib/dhive";
 import QuestionCardSkeleton from "../components/QuestionCardSkeleton";
 
 export default function Index() {
+   const router = useRouter();
+   
+  React.useEffect(() => {
+   
+    router.push("/questions");
+  }, []);
+
   return (
     <React.Fragment>
       <SidebarTemplate

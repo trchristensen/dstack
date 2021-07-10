@@ -21,11 +21,11 @@ export async function getServerSideProps(context) {
 }
 
 export default function QuestionPage({ post }) {
-  const { data } = useQuery(
-    "question",
-    () => getPost(post.author, post.permlink),
-    { initialData: post }
-  );
+  // const { data } = useQuery(
+  //   "question",
+  //   () => getPost(post.author, post.permlink),
+  //   { initialData: post }
+  // );
 
   return (
     <SidebarTemplate

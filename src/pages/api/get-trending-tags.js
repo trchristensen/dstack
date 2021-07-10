@@ -5,7 +5,7 @@ const get_hot_discussions = async (req, res) => {
   // "", 100
   // or "example", 10
   const params = {
-    tag: "crypto",
+    tag: "dstack",
     start_author: "",
     start_permlink: "",
     limit: 100,
@@ -26,7 +26,7 @@ const get_hot_discussions = async (req, res) => {
       
         // map tag arrays to push to tags variable
       JSON.parse(post.json_metadata).tags.map(tag => {
-          tags = [...tags, tag]
+          tags = [...tags, tag.replace(/dstack-/g, "")];
         })
       })
 

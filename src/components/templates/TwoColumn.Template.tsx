@@ -19,7 +19,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import axios from "axios";
 
-export default function ({ main }) {
+export default function TwoColumnTemplate ({ main }) {
   return (
     <React.Fragment>
       <Navbar />
@@ -111,8 +111,18 @@ const TrendingTags = () => {
       <Box mt={4}>
         {/* {JSON.stringify(data.data.tags)} */}
         {data &&
-          data.data.tags.map((tag) => {
-            return <Tag mr={2} mb={2} w="auto" bg="gray.300">{tag.value}</Tag>
+          data.data.tags.map((tag, idx) => {
+            return (
+              <React.Fragment key={idx}>
+                <Link href={`/tags/${tag.value}`}>
+                  <a>
+                    <Tag mr={2} mb={2} w="auto" bg="gray.300">
+                      {tag.value}
+                    </Tag>
+                  </a>
+                </Link>
+              </React.Fragment>
+            );
           })}
       </Box>
   );
