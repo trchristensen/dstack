@@ -1,15 +1,17 @@
 import React from "react";
-import { Avatar, Box, Stack, HStack, Text } from "@chakra-ui/react";
+import { Avatar, Box, Stack, HStack, Text, Button } from "@chakra-ui/react";
 import {
   formatDistanceToNowStrict,
   parseISO,
 } from "date-fns";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import SidebarTemplate from "../../../components/templates/Sidebar.Template";
+import SidebarTemplate from "../../../../components/templates/Sidebar.Template";
 import { useQuery } from "react-query";
-import { findComments, getPost } from "../../../lib/dhive";
+import { findComments, getPost } from "../../../../lib/dhive";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
+import { AuthContext } from "../../../../lib/AuthProvider";
+import Link from "next/link";
 
 
 
@@ -37,6 +39,7 @@ export default function QuestionPage({ post }) {
 
 const Main = (props) => {
   const metadata = JSON.parse(props.json_metadata);
+  const { user, setUser } = React.useContext(AuthContext);
 
   return (
     <React.Fragment>
@@ -51,6 +54,14 @@ const Main = (props) => {
           </Stack>
         </Box>
         <Box id="question__details" w="auto" p={4} maxW="600px">
+          {user && user === props.author && (
+            <Box d="flex" justifyContent="flex-end">
+              <Link href={`/questions/${props.author}/${props.permlink}/edit`}>
+                <a>Edit</a>
+              </Link>
+            </Box>
+          )}
+
           <ReactMarkdown children={props.body} />
         </Box>
       </Box>

@@ -2,7 +2,7 @@ import React from "react";
 import { useInfiniteQuery } from "react-query";
 import axios from "axios";
 import { Box, Button, Text, Container } from "@chakra-ui/react";
-import QuestionCard from "../components/QuestionCard";
+import QuestionCard from "../../components/QuestionCard";
   import InfiniteScroll from "react-infinite-scroll-component";
 
 export default function Projects() {

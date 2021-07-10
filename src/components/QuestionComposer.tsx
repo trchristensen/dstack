@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   Box,
   Button,
@@ -13,19 +13,32 @@ import "react-markdown-editor-lite/lib/index.css";
 import { sendPostRequest } from "../lib/dhive";
 import { AuthContext } from "../lib/AuthProvider";
 import CreatableSelect from "react-select/creatable";
+import dynamic from "next/dynamic";
 
-export default function QuestionComposer() {
+export default function QuestionComposer({ post = null }) {
   const { user, setUser } = React.useContext(AuthContext);
   const mdParser = new MarkdownIt(/* Markdown-it options */);
+  const [text, setText] = React.useState(
+    post ? post.body : "Explain your question further here, on the left side. "
+  );
+  // const [html, setHtml] = React.useState("");
+  const [title, setTitle] = React.useState(post ? post.title : "");
 
-  const [text, setText] = React.useState("");
-  const [html, setHtml] = React.useState("");
-  const [title, setTitle] = React.useState("");
-  const [tags, setTags] = React.useState([]);
+  let selectFormTags;
+  if(post) {
+    selectFormTags = JSON.parse(post.json_metadata).tags.map((tag) => {
+      return {
+        value: tag.replace("dstack-", ""),
+        label: tag.replace("dstack-", ""),
+      };
+    });
+  }
+    
+  const [tags, setTags] = React.useState(post ? selectFormTags : []);
 
   function handleEditorChange({ html, text }) {
     console.log("handleEditorChange", html, text);
-    setHtml(html);
+    // setHtml(html);
     setText(text);
   }
   function handleTagsChange(newValue: any, actionMeta: any) {
@@ -38,7 +51,7 @@ export default function QuestionComposer() {
     // convert taglist to strings[] instead of objects[]
     let convertedTags = tags.map((tag) => `dstack-${tag.value}`);
 
-    console.log(convertedTags)
+    console.log(convertedTags);
 
     const payload = {
       account_name: user,
@@ -50,7 +63,7 @@ export default function QuestionComposer() {
         tags: convertedTags,
         app: "dstack/0.1",
       }),
-      permlink: Math.random().toString(36).substring(2),
+      permlink: post ? post.permlink : Math.random().toString(36).substring(2),
       comment_options: "",
     };
 
@@ -85,6 +98,7 @@ export default function QuestionComposer() {
             style={{ height: "500px" }}
             renderHTML={(text) => mdParser.render(text)}
             onChange={handleEditorChange}
+            value={text}
           />
         </FormControl>
         <FormControl mb={6}>
@@ -96,18 +110,14 @@ export default function QuestionComposer() {
             onChange={handleTagsChange}
             options={null}
             placeholder="Add tags"
+            defaultValue={selectFormTags}
           />
         </FormControl>
         <FormControl>
-          <Button
-            bg="gray.500"
-            color="white"
-            onClick={(e) => handleSubmit(e)}
-          >
+          <Button bg="gray.500" color="white" onClick={(e) => handleSubmit(e)}>
             Post your question
           </Button>
         </FormControl>
-        {text}
       </form>
     </Box>
   );
