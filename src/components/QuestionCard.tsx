@@ -84,7 +84,7 @@ const QuestionCard = (props) => {
             style={{ display: bodyToggle ? `block` : `none` }}
             flexDir="row"
             maxW={["100%", "100%", "750px"]}
-            fontSize="sm"
+            fontSize="md"
           >
             <ReactMarkdown children={props.body} />
           </Box>

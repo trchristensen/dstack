@@ -15,7 +15,7 @@ export default async (req, res) => {
       {
         headers: {
           "Content-Type": "application/json",
-          "Authorization": process.env.HIVESEARCH_API,
+          "Authorization": `${process.env.HIVESEARCH_API}`,
         },
       }
     )
