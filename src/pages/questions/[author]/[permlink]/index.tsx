@@ -40,7 +40,7 @@ export default function QuestionPage({ post }) {
 const Main = (props) => {
   const metadata = JSON.parse(props.json_metadata);
   const { user, setUser } = React.useContext(AuthContext);
-
+  const [votePower, setVotePower] = React.useState(0);
   return (
     <React.Fragment>
       <Box pt={4} d="flex" flexWrap="nowrap" flexDir="row">
@@ -54,7 +54,7 @@ const Main = (props) => {
           </Stack>
         </Box>
         <Box id="question__details" w="auto" p={4} maxW="600px">
-          <HiveSlider />
+          <HiveSlider isValue={votePower} />
           {user && user === props.author && (
             <Box d="flex" justifyContent="flex-end">
               <Link href={`/questions/${props.author}/${props.permlink}/edit`}>
