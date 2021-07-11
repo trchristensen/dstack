@@ -53,12 +53,20 @@ import keychainIcon from "../public/keychain.6846c271.png";
 import { AuthContext, logOut } from "../lib/AuthProvider";
 import { signinWithHiveKeychain } from "../lib/AuthProvider";
 import { RiLogoutBoxLine } from "react-icons/ri";
+import SearchBar from "./templates/SearchBar";
+
 
 export default function WithSubnavigation() {
   const { isOpen, onToggle } = useDisclosure();
   const { colorMode } = useColorMode();
   const bgColor = { dark: "gray.50", light: "gray.900" };
   const color = { dark: "black", light: "white" };
+
+  const router = useRouter();
+  const onSearch = (input) => {
+    router.push(`/search?q=${input}`)
+    
+  }
 
   return (
     <Box
@@ -101,13 +109,8 @@ export default function WithSubnavigation() {
           // maxW="600px"
           pos="relative"
         >
-          <InputGroup>
-            <InputLeftElement
-              pointerEvents="none"
-              children={<SearchIcon color="gray.300" />}
-            />
-            <Input type="text" placeholder="Search" />
-          </InputGroup>
+          
+          <SearchBar onSearch={onSearch} />
         </Flex>
 
         <Stack direction="row" alignItems="center" spacing={2}>

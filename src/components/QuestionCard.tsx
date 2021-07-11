@@ -11,7 +11,7 @@ import {
 } from "react-icons/ri";
 
 import { FaExpandAlt } from "react-icons/fa";
-import { BsLightningFill } from "react-icons/bs"
+import { BsLightningFill } from "react-icons/bs";
 import {
   formatDistanceToNow,
   formatDistanceToNowStrict,
@@ -25,10 +25,17 @@ import Image from "next/image";
 import HiveIcon from "../public/hive-blockchain-hive-logo.svg";
 
 const QuestionCard = (props) => {
-  // const metadata = JSON.parse(props.json_metadata);
-  const metadata = props.json_metadata;
+  let tags;
 
-  const [bodyToggle, setBodyToggle] = React.useState(false)
+  if (props.dataSource == "search") {
+    tags = props.tags;
+  } else {
+    // const metadata = JSON.parse(props.json_metadata);
+    let metadata = props.json_metadata;
+    let tags = props.json_metadata.tags;
+  }
+
+  const [bodyToggle, setBodyToggle] = React.useState(false);
 
   return (
     <Box
@@ -85,8 +92,8 @@ const QuestionCard = (props) => {
             flexDir="column"
           >
             <HStack spacing={1} mt={1} mb={4} flexWrap="wrap">
-              {metadata.tags &&
-                metadata.tags.slice(0, 9).map((tag) => (
+              {tags &&
+                tags.slice(0, 9).map((tag) => (
                   <Link key={tag} href={`/tags/${tag.replace(/dstack-/g, "")}`}>
                     <a>
                       <Tag
@@ -102,7 +109,7 @@ const QuestionCard = (props) => {
                     </a>
                   </Link>
                 ))}
-              {metadata.tags && metadata.tags.length > 10 && (
+              {tags && tags.length > 10 && (
                 <Link href="#">
                   <a>
                     <Tag
@@ -199,7 +206,7 @@ const QuestionCard = (props) => {
                 >
                   <Icon as={RiHeartLine} />
 
-                  <Text as="span">{props.active_votes.length}</Text>
+                  {/* <Text as="span">{props.active_votes.length}</Text> */}
                 </Stack>
 
                 <Stack
@@ -221,11 +228,11 @@ const QuestionCard = (props) => {
                 >
                   <Icon as={RiRocketLine} />
 
-                  <Text as="span">
+                  {/* <Text as="span">
                     {parseInt(props.promoted) == 0
                       ? "0"
                       : props.promoted.slice(0, props.promoted.length - 6)}
-                  </Text>
+                  </Text> */}
                 </Stack>
                 <Stack
                   textAlign="center"
