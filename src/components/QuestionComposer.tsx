@@ -51,7 +51,6 @@ export default function QuestionComposer({ post = null }) {
     // convert taglist to strings[] instead of objects[]
     let convertedTags = tags.map((tag) => `dstack-${tag.value}`);
 
-    console.log(convertedTags);
 
     const payload = {
       account_name: user,
@@ -63,7 +62,8 @@ export default function QuestionComposer({ post = null }) {
         tags: convertedTags,
         app: "dstack/0.1",
       }),
-      permlink: post ? post.permlink : Math.random().toString(36).substring(2),
+      // permlink: post ? post.permlink : Math.random().toString(36).substring(2),
+      permlink: post.permlink,
       comment_options: "",
     };
 

@@ -13,7 +13,7 @@ import Image from "next/image";
 import { AuthContext } from "../../../../lib/AuthProvider";
 import Link from "next/link";
 
-
+import HiveSlider from '../../../../components/HiveSlider.component'
 
 export async function getServerSideProps(context) {
   console.log("context", context);
@@ -54,6 +54,7 @@ const Main = (props) => {
           </Stack>
         </Box>
         <Box id="question__details" w="auto" p={4} maxW="600px">
+          <HiveSlider />
           {user && user === props.author && (
             <Box d="flex" justifyContent="flex-end">
               <Link href={`/questions/${props.author}/${props.permlink}/edit`}>

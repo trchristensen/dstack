@@ -243,7 +243,7 @@ const QuestionCard = (props) => {
                   direction="row"
                   alignItems="center"
                 >
-                  <HiveIcon width="20" height="20w" />
+                  <HiveIcon width="20" height="20" />
                   <Text title={`${props.payout} HBD payout`} as="span">
                     {props.payout}
                   </Text>

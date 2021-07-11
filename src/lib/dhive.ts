@@ -108,9 +108,8 @@ interface IPostData {
 
   export const sendPostRequest = (PostData) => {
     const keychain = window.hive_keychain;
-    console.log('inside post request fn')
 
-    const {account_name, title, body, json_metadata, parent_author} = PostData;
+    const {account_name, title, body, json_metadata, parent_author, permlink} = PostData;
 
     // const taglist = ["tag", "another-tag"];
     // const account_name = "ipeeyay";
@@ -122,7 +121,7 @@ interface IPostData {
     //   tags: taglist,
     //   app: "dstack/0.1",
     // });
-    const permlink = Math.random().toString(36).substring(2);
+    // const permlink = Math.random().toString(36).substring(2);
     const comment_options = "";
 
     keychain.requestPost(
