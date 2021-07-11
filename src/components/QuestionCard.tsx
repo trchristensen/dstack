@@ -26,13 +26,18 @@ import HiveIcon from "../public/hive-blockchain-hive-logo.svg";
 
 const QuestionCard = (props) => {
   let tags;
+  let created_at;
 
   if (props.dataSource == "search") {
     tags = props.tags;
+    created_at = props.created_at
   } else {
     // const metadata = JSON.parse(props.json_metadata);
     let metadata = props.json_metadata;
     let tags = props.json_metadata.tags;
+    let created_at = props.created;
+    let updated_at = props.created;
+    
   }
 
   const [bodyToggle, setBodyToggle] = React.useState(false);
