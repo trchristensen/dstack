@@ -43,6 +43,7 @@ const Main = () => {
         cursor: pageParam,
         sort: filter,
         tag: "dstack",
+        
         observer: "ipeeyay",
         // truncate_body: 100
       },
@@ -68,7 +69,6 @@ const Main = () => {
       <Box
         d="flex"
         pb={4}
-        px={4}
         justifyContent="space-between"
         alignItems="center"
       >

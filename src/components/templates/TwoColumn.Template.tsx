@@ -23,7 +23,7 @@ export default function TwoColumnTemplate ({ main }) {
   return (
     <React.Fragment>
       <Navbar />
-      <Container>
+      <Container b>
         {/* <Header /> */}
         <Box
           d="flex"
@@ -44,6 +44,7 @@ export default function TwoColumnTemplate ({ main }) {
           >
             <Box w="100%">{main}</Box>
             <Box
+              pl={4}
               w="300px"
               //   bg="pink.100"
               flexShrink={0}
@@ -51,13 +52,13 @@ export default function TwoColumnTemplate ({ main }) {
               pr={4}
             >
               <Stack spacing={4}>
-                <Box minHeight="400px" rounded="md" bg="gray.100" py={4} px={4}>
+                <Box bg="white" minHeight="400px" rounded="md" shadow="md" py={4} px={4}>
                   <Text fontSize="lg" fontWeight="500">
                     Trending Tags
                   </Text>
                   <TrendingTags />
                 </Box>
-                <Box height="400px" rounded="md" bg="gray.100" py={4} px={4}>
+                <Box bg="white" height="400px" rounded="md" shadow="md" py={4} px={4}>
                   <Text fontSize="lg" fontWeight="500">
                     Related Questions
                   </Text>
@@ -116,7 +117,7 @@ const TrendingTags = () => {
               <React.Fragment key={idx}>
                 <Link href={`/tags/${tag.value}`}>
                   <a>
-                    <Tag mr={2} mb={2} w="auto" bg="gray.300">
+                    <Tag mr={2} mb={2} w="auto" bg="gray.100">
                       {tag.value}
                     </Tag>
                   </a>

@@ -15,11 +15,10 @@ const FilterBar = ({ handleClick = null}) => {
 
   return (
     <React.Fragment>
-      <ButtonGroup isAttached bg="gray.100" rounded="md" spacing={0}>
+      <ButtonGroup id="filter-bar" bg="gray.300" isAttached rounded="md" spacing={0}>
         <Button
           onClick={(e) => handleClick(e)}
           value="hot"
-          borderRightWidth={0}
           p={2}
           py={1}
         >
@@ -28,7 +27,6 @@ const FilterBar = ({ handleClick = null}) => {
         <Button
           onClick={(e) => handleClick(e)}
           value="trending"
-          borderRightWidth={0}
           p={2}
           py={1}
         >
@@ -37,7 +35,6 @@ const FilterBar = ({ handleClick = null}) => {
         <Button
           onClick={(e) => handleClick(e)}
           value="created"
-          borderRightWidth={1}
           p={2}
           py={1}
         >
@@ -46,7 +43,6 @@ const FilterBar = ({ handleClick = null}) => {
         <Button
           onClick={(e) => handleClick(e)}
           value="promoted"
-          borderRightWidth={1}
           p={2}
           py={1}
         >

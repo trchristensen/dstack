@@ -12,13 +12,20 @@ const SearchBar = ({ onSearch }) => {
     }
 
     return (
-      <form style={{width: '100%'}} onSubmit={(e) => handleSearch(e)}>
+      <form style={{ width: "100%" }} onSubmit={(e) => handleSearch(e)}>
         <InputGroup>
           <InputLeftElement
             pointerEvents="none"
             children={<SearchIcon color="gray.300" />}
           />
-          <Input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Search" />
+          <Input
+            rounded="full"
+            bg="gray.100"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            type="text"
+            placeholder="Search"
+          />
         </InputGroup>
       </form>
     );

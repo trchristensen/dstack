@@ -1,9 +1,5 @@
 import React from "react";
 import { Avatar, Box, Stack, HStack, Text, Button } from "@chakra-ui/react";
-import {
-  formatDistanceToNowStrict,
-  parseISO,
-} from "date-fns";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import SidebarTemplate from "../../../../components/templates/Sidebar.Template";
 import { useQuery } from "react-query";
@@ -76,11 +72,7 @@ const TitleSection = (props) => (
     <Text as="h1" fontSize="x-large">
       {props.title}
     </Text>
-    <Text>
-      {formatDistanceToNowStrict(parseISO(`${props.last_update}`), {
-        addSuffix: true,
-      })}
-    </Text>
+    <Text>{props.last_update}</Text>
     <HStack spacing={2} alignItems="center">
       <Avatar
         src={`https://images.hive.blog/u/${props.root_author}/avatar/small`}

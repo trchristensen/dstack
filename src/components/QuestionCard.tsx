@@ -27,16 +27,18 @@ import HiveIcon from "../public/hive-blockchain-hive-logo.svg";
 const QuestionCard = (props) => {
   let tags;
   let created_at;
+  let updated_at;
 
   if (props.dataSource == "search") {
     tags = props.tags;
     created_at = props.created_at
+    updated_at = props.created_at
   } else {
     // const metadata = JSON.parse(props.json_metadata);
     let metadata = props.json_metadata;
-    let tags = props.json_metadata.tags;
-    let created_at = props.created;
-    let updated_at = props.created;
+    tags = props.json_metadata.tags;
+    created_at = props.created;
+    updated_at = props.updated;
     
   }
 
@@ -45,7 +47,7 @@ const QuestionCard = (props) => {
   return (
     <Box
       w="100%"
-      px={3}
+      px={1}
       py={3}
       pb={1}
       d="flex"
@@ -54,9 +56,15 @@ const QuestionCard = (props) => {
       alignItems="stretch"
       // borderBottomWidth={1}
       flexDir={["column", "column", "row"]}
+      shadow="sm"
+      mb={4}
+      bg="white"
+      rounded="md"
       // bg="gray.100"
     >
-      <Box w="100%" borderBottomWidth={1}>
+      <Box w="100%"
+      // borderBottomWidth={1}
+      >
         <Box
           px={2}
           w="100%"
@@ -307,11 +315,11 @@ const QuestionCard = (props) => {
                         flexShrink={0}
                         float="right"
                       >
-                        {props.updated == props.created
+                        {updated_at == created_at
                           ? `created `
                           : `updated `}
 
-                        {props.updated}
+                        {updated_at}
                       </Text>
                     </Box>
                   </Box>

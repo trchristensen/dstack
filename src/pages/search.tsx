@@ -70,7 +70,6 @@ const Main = ({ router, searchQuery }) => {
       <Box
         d="flex"
         pb={4}
-        px={4}
         justifyContent="space-between"
         alignItems="center"
       >

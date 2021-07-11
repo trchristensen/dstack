@@ -95,7 +95,7 @@ export default function WithSubnavigation() {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
             fontWeight="600"
-            fontSize="lg"
+            fontSize="2xl"
           >
             {SITE_NAME}
           </Text>
@@ -106,7 +106,7 @@ export default function WithSubnavigation() {
           display={{ base: "none", md: "flex" }}
           ml={10}
           w="full"
-          // maxW="600px"
+          maxW="600px"
           pos="relative"
         >
           

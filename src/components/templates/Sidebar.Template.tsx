@@ -20,7 +20,7 @@ import { RiHome2Fill, RiHome2Line, RiPriceTag2Fill, RiPriceTag2Line, RiQuestionA
 
 const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
   return (
-    <React.Fragment>
+    <Box background="gray.200"> 
       <Navbar />
       <Container>
         {/* <Header /> */}
@@ -85,7 +85,7 @@ const SidebarTemplate = ({ main, header = null, titleSection = null }) => {
 
       {/* <Footer /> */}
       <DarkModeSwitch />
-    </React.Fragment>
+    </Box>
   );
 }
 
