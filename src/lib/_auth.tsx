@@ -31,12 +31,14 @@ function useHiveKeychainAuth() {
       // createUser(user.uid, userWithoutToken);
       localStorage.setItem("currentUser", JSON.stringify(userWithoutToken));
       setUser(user);
+      alert('user is: ' + user)
 
       setLoading(false);
       return user;
     } else {
       setUser(false);
       setLoading(false);
+      alert('user save not successful.')
       return false;
     }
   };
@@ -53,11 +55,11 @@ function useHiveKeychainAuth() {
         const signedMessageObj = { type: "login", app: "ipeeyay" };
         const messageObj = {
           signed_message: signedMessageObj,
-          username: keychain.data.username,
+          username: username,
           // timestamp: time,
         };
         keychain.requestSignBuffer(
-          keychain.data.username,
+          username,
           JSON.stringify(messageObj),
           "Posting",
           (response, err) => {
