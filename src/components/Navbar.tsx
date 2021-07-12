@@ -101,7 +101,6 @@ export default function WithSubnavigation() {
           </Text>
           {/* </a> */}
         </Link>
-
         <Flex
           display={{ base: "none", md: "flex" }}
           ml={10}
@@ -109,7 +108,6 @@ export default function WithSubnavigation() {
           maxW="600px"
           pos="relative"
         >
-          
           <SearchBar onSearch={onSearch} />
         </Flex>
 
@@ -126,7 +124,6 @@ export default function WithSubnavigation() {
           <Flex
             flex={{ base: 1, md: "auto" }}
             ml={{ base: -2 }}
-         
             // display={{ base: "flex", md: "none" }}
             display="flex"
           >
@@ -277,7 +274,7 @@ const Login = () => {
         </>
       ) : (
         <Button
-          display={{ base: "none", md: "inline-flex" }}
+          display={ "inline-flex" }
           fontSize={"sm"}
           fontWeight={600}
           // color={"white"}
