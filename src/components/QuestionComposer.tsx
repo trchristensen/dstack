@@ -51,9 +51,12 @@ export default function QuestionComposer({ post = null }) {
     // convert taglist to strings[] instead of objects[]
     let convertedTags = tags.map((tag) => `dstack-${tag.value}`);
 
+    let ls = localStorage.getItem('currentUser');
+    let userData = JSON.parse(ls);
+    let username = userData.data.username;
 
     const payload = {
-      account_name: user,
+      account_name: username,
       title,
       body: text,
       parent_permlink: "dstack",
