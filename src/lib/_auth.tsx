@@ -53,11 +53,11 @@ function useHiveKeychainAuth() {
         const signedMessageObj = { type: "login", app: "ipeeyay" };
         const messageObj = {
           signed_message: signedMessageObj,
-          player: username,
+          username: keychain.data.username,
           // timestamp: time,
         };
         keychain.requestSignBuffer(
-          username,
+          keychain.data.username,
           JSON.stringify(messageObj),
           "Posting",
           (response, err) => {
