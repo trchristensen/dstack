@@ -274,7 +274,7 @@ const Login = () => {
         </>
       ) : (
         <Button
-          display={ "inline-flex" }
+          display={"inline-flex"}
           fontSize={"sm"}
           fontWeight={600}
           // color={"white"}
@@ -306,7 +306,7 @@ const Login = () => {
                     pointerEvents="none"
                     children={<Icon as={RiUser2Fill} color="gray.300" />}
                   />
-                  <Input type="text" placeholder="Username" />
+                  <Input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Username" />
                 </InputGroup>
               </FormControl>
 
@@ -322,6 +322,7 @@ const Login = () => {
 
                   onClick={() => {
                     signinWithHiveKeychain(input, (res) => {
+                      console.log("input", input);
                       if (res.success === true) {
                         console.log("response...", res);
                         setUser(res.data.username);
@@ -340,22 +341,32 @@ const Login = () => {
                 </Button>
               </Stack>
               {!hasKeychain && (
-              <Box
-                mt={2}
-                p={2}
-                d="flex"
-                alignItems="center"
-                justifyContent="center"
-                rounded="md"
-                bg="red.200"
-                textAlign="center"
-              >
-                <Text fontWeight="600">
-                   "Please install Hive Keychain to Login"
-                </Text>
-              </Box>
+                <Box
+                  mt={2}
+                  p={2}
+                  d="flex"
+                  alignItems="center"
+                  justifyContent="center"
+                  rounded="md"
+                  bg="red.200"
+                  textAlign="center"
+                >
+                  <Text fontWeight="600">
+                    "Please install Hive Keychain to Login"
+                  </Text>
+                </Box>
               )}
-              <Link as="button" bg="blue.500" color="white" rounded="md" p={2} fontWeight="600" _hover={{textDecoration: 'none'}} href="https://hiveonboard.com?ref=ipeeyay" target="_blank">
+              <Link
+                as="button"
+                bg="blue.500"
+                color="white"
+                rounded="md"
+                p={2}
+                fontWeight="600"
+                _hover={{ textDecoration: "none" }}
+                href="https://hiveonboard.com?ref=ipeeyay"
+                target="_blank"
+              >
                 <a>Sign Up</a>
               </Link>
             </Stack>

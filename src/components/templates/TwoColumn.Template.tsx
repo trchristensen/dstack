@@ -23,7 +23,7 @@ export default function TwoColumnTemplate ({ main }) {
   return (
     <React.Fragment>
       <Navbar />
-      <Container b>
+      <Container>
         {/* <Header /> */}
         <Box
           d="flex"

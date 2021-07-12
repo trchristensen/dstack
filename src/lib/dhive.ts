@@ -135,6 +135,7 @@ interface IPostData {
       comment_options,
       function (response) {
         console.log(response);
-      }
+      },
+      null
     );
   };

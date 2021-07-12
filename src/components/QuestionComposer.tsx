@@ -52,11 +52,20 @@ export default function QuestionComposer({ post = null }) {
     let convertedTags = tags.map((tag) => `dstack-${tag.value}`);
 
     let ls = localStorage.getItem('currentUser');
-    let userData = JSON.parse(ls);
-    let username = userData.data.username;
+
+    if(ls) {
+      let userData = JSON.parse(ls);
+      let username = userData.data.username;
+      console.log('username', username)
+      console.log("userdata", userData);
+
+    } else {
+      throw Error('no user found in local storage. sign in!')
+    }
+    
 
     const payload = {
-      account_name: username,
+      account_name: JSON.parse(localStorage.getItem("currentUser")).data.username,
       title,
       body: text,
       parent_permlink: "dstack",

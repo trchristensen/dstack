@@ -6,7 +6,9 @@ import QuestionComposer from "../../components/QuestionComposer";
 import SidebarTemplate from "../../components/templates/Sidebar.Template";
 import { useRouter } from "next/router";
 import { isError, useInfiniteQuery, useQuery } from "react-query";
-import QuestionCardSkeleton, { HalfQuestionCardSkeleton } from "../../components/QuestionCardSkeleton";
+import QuestionCardSkeleton, {
+  HalfQuestionCardSkeleton,
+} from "../../components/QuestionCardSkeleton";
 import InfiniteScroll from "react-infinite-scroll-component";
 import FilterBar from "../../components/FilterBar";
 import TwoColumnTemplate from "../../components/templates/TwoColumn.Template";
@@ -26,16 +28,16 @@ export default function QuestionsPage() {
 const Main = () => {
   const router = useRouter();
 
-    const [filter, setFilter] = React.useState("created");
-    
-    React.useEffect(() => {
-     console.log('refetch called') 
-      refetch();
-    }, [filter])
+  const [filter, setFilter] = React.useState("created");
 
-    const handleFilterClick = (e) => {
-      setFilter(e.target.value);
-    };
+  React.useEffect(() => {
+    console.log("refetch called");
+    refetch();
+  }, [filter]);
+
+  const handleFilterClick = (e) => {
+    setFilter(e.target.value);
+  };
 
   const fetchPosts = ({ pageParam = null }) =>
     axios("/api/get-ranked-posts?", {
@@ -43,7 +45,6 @@ const Main = () => {
         cursor: pageParam,
         sort: filter,
         tag: "dstack",
-        
         observer: "ipeeyay",
         // truncate_body: 100
       },
@@ -62,8 +63,6 @@ const Main = () => {
     // getNextPageParam: (lastPage, pages) => lastPage;
   });
 
-
-
   return (
     <Fragment>
       <Box
@@ -71,9 +70,14 @@ const Main = () => {
         pb={4}
         justifyContent="space-between"
         alignItems="center"
+        flexDirection={["column", "row", "row"]}
       >
-        <FilterBar handleClick={handleFilterClick} />
+        <Box order={[2, 1, 1]}>
+          <FilterBar handleClick={handleFilterClick} />
+        </Box>
+
         <Button
+          order={[1, 2, 2]}
           onClick={() => router.push("/questions/ask")}
           bg="blue.500"
           color="white"
