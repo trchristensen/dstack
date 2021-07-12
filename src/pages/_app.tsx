@@ -1,6 +1,5 @@
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
 import theme from "../theme";
-import styles from "../styles/app.scss";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 // import { AuthProvider } from '../lib/_auth';
