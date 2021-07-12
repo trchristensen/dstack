@@ -12,14 +12,8 @@ import {
 
 import { FaExpandAlt } from "react-icons/fa";
 import { BsLightningFill } from "react-icons/bs";
-import {
-  formatDistanceToNow,
-  formatDistanceToNowStrict,
-  parseISO,
-} from "date-fns";
 import { Router } from "next/router";
 // import { convertDateTimeToUTC } from "../utils";
-import { zonedTimeToUtc, utcToZonedTime, format } from "date-fns-tz";
 import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import HiveIcon from "../public/hive-blockchain-hive-logo.svg";
