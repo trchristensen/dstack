@@ -356,6 +356,9 @@ const Login = () => {
                   {!hasKeychain && "Please install Hive Keychain to Login"}
                 </Text>
               </Box>
+              <Link as="button" bg="blue.500" color="white" rounded="md" p={2} fontWeight="600" _hover={{textDecoration: 'none'}} href="https://hiveonboard.com?ref=ipeeyay" target="_blank">
+                <a>Sign Up</a>
+              </Link>
             </Stack>
           </Box>
         </ModalContent>
