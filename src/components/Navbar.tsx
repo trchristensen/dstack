@@ -52,7 +52,7 @@ import { SITE_NAME, NAV_ITEMS } from "../constants";
 import keychainIcon from "../public/keychain.6846c271.png";
 import { AuthContext, logOut } from "../lib/AuthProvider";
 import { signinWithHiveKeychain } from "../lib/AuthProvider";
-import { RiLogoutBoxLine } from "react-icons/ri";
+import { RiLogoutBoxLine, RiUser2Fill } from "react-icons/ri";
 import SearchBar from "./templates/SearchBar";
 
 
@@ -225,9 +225,19 @@ const Login = () => {
   const bgColor = { dark: "gray.50", light: "gray.900" };
   const color = { dark: "black", light: "white" };
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [hasKeychain, setHasKeychain] = React.useState(false)
 
   const { user, setUser } = React.useContext(AuthContext);
   const [input, setInput] = React.useState("");
+
+  
+  React.useEffect(() => {
+    if(window.hive_keychain) {
+      setHasKeychain(true)
+    } else {
+      setHasKeychain(false)
+    }
+  },[])
 
   return (
     <React.Fragment>
@@ -293,21 +303,30 @@ const Login = () => {
             <Stack spacing={4}>
               <FormControl id="username">
                 <FormLabel>Username</FormLabel>
-                <Input type="text" />
+                {/* <Input type="text" /> */}
+                <InputGroup>
+                  <InputLeftElement
+                    pointerEvents="none"
+                    children={<Icon as={RiUser2Fill} color="gray.300" />}
+                  />
+                  <Input type="text" placeholder="Username" />
+                </InputGroup>
               </FormControl>
 
-              <Stack spacing={10}>
+              <Stack spacing={0}>
                 <Button
+                  disabled={!hasKeychain}
                   bg={"black"}
                   color={"white"}
                   _hover={{
                     bg: "black",
                   }}
                   // onClick={() => alert('hello')}
+
                   onClick={() => {
                     signinWithHiveKeychain(input, (res) => {
                       if (res.success === true) {
-                        console.log('response...', res )
+                        console.log("response...", res);
                         setUser(res.data.username);
                       }
                     });
@@ -323,6 +342,20 @@ const Login = () => {
                   /> */}
                 </Button>
               </Stack>
+              <Box
+                mt={2}
+                p={2}
+                d="flex"
+                alignItems="center"
+                justifyContent="center"
+                rounded="md"
+                bg="red.200"
+                textAlign="center"
+              >
+                <Text fontWeight="600">
+                  {!hasKeychain && "Please install Hive Keychain to Login"}
+                </Text>
+              </Box>
             </Stack>
           </Box>
         </ModalContent>

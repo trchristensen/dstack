@@ -40,6 +40,12 @@ export const signinWithHiveKeychain = async (username, callback) => {
 
   if (typeof window !== "undefined") {
     const keychain = window.hive_keychain;
+
+
+    if(!keychain) {
+      return alert('Please Install the Hive Keychain first.')
+    }
+
     const signedMessageObj = { type: "login", app: "ipeeyay" };
     const messageObj = {
       signed_message: signedMessageObj,
