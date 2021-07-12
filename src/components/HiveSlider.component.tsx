@@ -8,6 +8,7 @@ const HiveSlider = ({ isValue }) => {
 
   const [value, setValue] = useState(0)
 
+
     return (
       <React.Fragment>
         <Styles />

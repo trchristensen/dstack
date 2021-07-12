@@ -1,4 +1,4 @@
-export const SITE_NAME = "dstack"
+export const SITE_NAME = "stackd"
 
 export const NAV_ITEMS: Array<NavItem> = [
   {

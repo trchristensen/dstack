@@ -71,7 +71,7 @@ export default function QuestionComposer({ post = null }) {
   }
 
   return (
-    <Box w="100%" p={4}>
+    <Box w="100%" p={4} bg="white" rounded="md" shadow="sm" mb={4}>
       <form onSubmit={(e) => handleSubmit(e)}>
         <FormControl mb={8}>
           <Text as="h3" fontWeight="600" fontSize="md" lineHeight="1">
@@ -114,7 +114,7 @@ export default function QuestionComposer({ post = null }) {
           />
         </FormControl>
         <FormControl>
-          <Button bg="gray.500" color="white" onClick={(e) => handleSubmit(e)}>
+          <Button onClick={(e) => handleSubmit(e)}>
             Post your question
           </Button>
         </FormControl>

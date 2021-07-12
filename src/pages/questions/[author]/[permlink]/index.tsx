@@ -1,15 +1,14 @@
 import React from "react";
-import { Avatar, Box, Stack, HStack, Text, Button } from "@chakra-ui/react";
+import { Avatar, Box, Stack, HStack, Text, Button, Tag } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import SidebarTemplate from "../../../../components/templates/Sidebar.Template";
 import { useQuery } from "react-query";
 import { findComments, getPost } from "../../../../lib/dhive";
-import ReactMarkdown from "react-markdown";
 import Image from "next/image";
 import { AuthContext } from "../../../../lib/AuthProvider";
 import Link from "next/link";
-
+import MarkDown from '../../../../components/MarkDown'
 import HiveSlider from '../../../../components/HiveSlider.component'
+import TwoColumnTemplate from "../../../../components/templates/TwoColumn.Template";
 
 export async function getServerSideProps(context) {
   console.log("context", context);
@@ -26,9 +25,11 @@ export default function QuestionPage({ post }) {
   // );
 
   return (
-    <SidebarTemplate
+    <TwoColumnTemplate
       main={<Main {...post} />}
-      titleSection={<TitleSection {...post} header={<div></div>} />}
+      // titleSection={<TitleSection {...post}
+      // header={<div></div>} />
+    // }
     />
   );
 }
@@ -39,8 +40,8 @@ const Main = (props) => {
   const [votePower, setVotePower] = React.useState(0);
   return (
     <React.Fragment>
-      <Box pt={4} d="flex" flexWrap="nowrap" flexDir="row">
-        <Box id="question__voteBox" pl={4}>
+      <Box d="flex" flexWrap="nowrap" flexDir="row">
+        <Box mr={4} id="question__voteBox" pl={4}>
           <Stack justifyContent="center" alignItems="center" spacing={0}>
             <TriangleUpIcon h={"40px"} w={"40px"} />
             <Text fontSize="2xl" as="div">
@@ -49,20 +50,52 @@ const Main = (props) => {
             <TriangleDownIcon h={"40px"} w={"40px"} />
           </Stack>
         </Box>
-        <Box id="question__details" w="auto" p={4} maxW="600px">
-          <HiveSlider isValue={votePower} />
+        <Box
+          rounded="md"
+          shadow="md"
+          id="question__details"
+          w="auto"
+          p={4}
+          bg="white"
+          // maxW="600px"
+        >
+          {/* <Box px={4}>
+            <HiveSlider isValue={votePower} />
+          </Box> */}
+
           {user && user === props.author && (
-            <Box d="flex" justifyContent="flex-end">
-              <Link href={`/questions/${props.author}/${props.permlink}/edit`}>
-                <a>Edit</a>
-              </Link>
+            <Box d="flex" flexDir="column" justifyContent="flex-end">
+              <Box>
+                {/* need to also check if it's past the payout time. if it is, can't edit anymore. */}
+                <Text>Mark as answered</Text>
+              </Box>
+              <Box d="flex" justifyContent="flex-end">
+                <Link
+                  href={`/questions/${props.author}/${props.permlink}/edit`}
+                >
+                  <a>Edit</a>
+                </Link>
+              </Box>
             </Box>
           )}
 
-          <ReactMarkdown children={props.body} />
+          <Box>
+            <Text as="h1" fontSize="xl" fontWeight="600" mb={4}>
+              {props.title}
+            </Text>
+          </Box>
+
+          <div id="markdown">
+            <MarkDown children={props.body} />
+          </div>
+          <Box mt={4} spacing={1}>
+            {metadata.tags && metadata.tags.map((tag) => <Tag>{tag}</Tag>)}
+          </Box>
+          <Box my={4} borderTopWidth={1}>
+            <Answers {...props} />
+          </Box>
         </Box>
       </Box>
-      <Answers {...props} />
     </React.Fragment>
   );
 };
@@ -83,6 +116,7 @@ const TitleSection = (props) => (
 );
 
 const Answers = (post:any)  => {
+
   const { data, isLoading, error } = useQuery(
     "answers",
     () => findComments(post.author, post.permlink)
@@ -97,9 +131,9 @@ const Answers = (post:any)  => {
     <Stack spacing={4}>
       {data &&
         data.map((answer, idx) => (
-          <Box key={idx} bg="gray.100" p={4}>
+          <Box key={idx} p={4}>
             <Text>{answer.author}</Text>
-            <ReactMarkdown>{answer.body}</ReactMarkdown>
+            <MarkDown>{answer.body}</MarkDown>
           </Box>
         ))}
       {/* {JSON.stringify(data)} */}

@@ -52,13 +52,13 @@ export default function TwoColumnTemplate ({ main }) {
               pr={4}
             >
               <Stack spacing={4}>
-                <Box bg="white" minHeight="400px" rounded="md" shadow="md" py={4} px={4}>
+                <Box bg="white" minHeight="400px" rounded="md" shadow="sm" py={4} px={4}>
                   <Text fontSize="lg" fontWeight="500">
                     Trending Tags
                   </Text>
                   <TrendingTags />
                 </Box>
-                <Box bg="white" height="400px" rounded="md" shadow="md" py={4} px={4}>
+                <Box bg="white" height="400px" rounded="md" shadow="sm" py={4} px={4}>
                   <Text fontSize="lg" fontWeight="500">
                     Related Questions
                   </Text>

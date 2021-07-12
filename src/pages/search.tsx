@@ -46,7 +46,7 @@ const Main = ({ router, searchQuery }) => {
         cursor: pageParam,
         sort: filter,
         q: searchQuery,
-        since: "2021-01-01T00:00:00+0000",
+        // since: "2021-01-01T00:00:00+0000",
       },
     });
 

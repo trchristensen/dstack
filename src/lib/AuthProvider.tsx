@@ -13,6 +13,11 @@ export const AuthProvider = (props) => {
     // check localstorage for user
     const storageObject = localStorage.getItem("currentUser");
     if (storageObject) {
+
+      // need a function here to get local time and set it in localstorage.
+
+      // e
+
       let currentUser = JSON.parse(storageObject).data.username;
       setUser("");
       setUser(currentUser);

@@ -11,8 +11,11 @@ const breakpoints = createBreakpoints({
 })
 
 const theme = extendTheme({
+  styles: {
+   
+  },
   colors: {
-    black: '#16161D',
+    black: "#16161D",
   },
   fonts,
   breakpoints,
@@ -33,9 +36,9 @@ const theme = extendTheme({
           />
         </svg>
       ),
-      viewBox: '0 0 3000 3163',
+      viewBox: "0 0 3000 3163",
     },
   },
-})
+});
 
 export default theme

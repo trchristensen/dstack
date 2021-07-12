@@ -28,17 +28,20 @@ const QuestionCard = (props) => {
   let tags;
   let created_at;
   let updated_at;
+  let votes;
 
   if (props.dataSource == "search") {
     tags = props.tags;
     created_at = props.created_at
     updated_at = props.created_at
+    votes = props.total_votes;
   } else {
     // const metadata = JSON.parse(props.json_metadata);
     let metadata = props.json_metadata;
     tags = props.json_metadata.tags;
     created_at = props.created;
     updated_at = props.updated;
+    votes = props.active_votes.length
     
   }
 
@@ -62,8 +65,9 @@ const QuestionCard = (props) => {
       rounded="md"
       // bg="gray.100"
     >
-      <Box w="100%"
-      // borderBottomWidth={1}
+      <Box
+        w="100%"
+        // borderBottomWidth={1}
       >
         <Box
           px={2}
@@ -93,6 +97,7 @@ const QuestionCard = (props) => {
             flexDir="row"
             maxW={["100%", "100%", "750px"]}
             fontSize="md"
+            mb={4}
           >
             <ReactMarkdown children={props.body} />
           </Box>
@@ -104,7 +109,7 @@ const QuestionCard = (props) => {
             // flexDir={["column", "column", "row"]}
             flexDir="column"
           >
-            <HStack spacing={1} mt={1} mb={4} flexWrap="wrap">
+            <HStack spacing={1} mt={2} mb={2} flexWrap="wrap">
               {tags &&
                 tags.slice(0, 9).map((tag) => (
                   <Link key={tag} href={`/tags/${tag.replace(/dstack-/g, "")}`}>
@@ -144,6 +149,10 @@ const QuestionCard = (props) => {
               flexDir="row"
               justifyContent="space-between"
               alignItems="flex-end"
+              id="card-bottom"
+              borderTopWidth={1}
+              borderTopColor="#f0f2f5"
+              pt={1}
             >
               <Box
                 h="100%"
@@ -161,7 +170,7 @@ const QuestionCard = (props) => {
                   px={0}
                   py={2}
                   pt={0}
-                  mr={4}
+                  // mr={4}
                   mb={0}
                   pb={0}
                   spacing={1}
@@ -173,6 +182,7 @@ const QuestionCard = (props) => {
                   <Box
                     onClick={() => setBodyToggle(!bodyToggle)}
                     borderRightWidth={1}
+                    borderRightColor="#0f2f5"
                     pr={4}
                     pb={1}
                     pl={2}
@@ -185,10 +195,11 @@ const QuestionCard = (props) => {
                   textAlign="center"
                   w="auto"
                   rounded="md"
-                  px={0}
+                  px={2}
                   py={2}
                   pt={0}
-                  mr={4}
+                  mx={2}
+                  ml={3}
                   mb={0}
                   pb={0}
                   spacing={1}
@@ -201,16 +212,17 @@ const QuestionCard = (props) => {
 
                   <Text as="span">{props.children}</Text>
                 </Stack>
+                {/* {(votes && votes) < 0 && ( */}
                 <Stack
                   textAlign="center"
                   w="auto"
                   rounded="md"
-                  px={0}
+                  px={2}
                   py={2}
                   pt={0}
-                  mr={4}
                   mb={0}
                   pb={0}
+                  mx={2}
                   spacing={1}
                   justifyContent="flex-end"
                   // direction={["row", "row", "column"]}
@@ -219,55 +231,62 @@ const QuestionCard = (props) => {
                 >
                   <Icon as={RiHeartLine} />
 
-                  {/* <Text as="span">{props.active_votes.length}</Text> */}
+                  <Text as="span">{votes}</Text>
                 </Stack>
+                {/* )} */}
+                {props.promoted < 0 && (
+                  <Stack
+                    textAlign="center"
+                    w="auto"
+                    rounded="md"
+                    px={2}
+                    py={2}
+                    pt={0}
+                    mr={4}
+                    mb={0}
+                    pb={0}
+                    mx={2}
+                    spacing={1}
+                    justifyContent="flex-end"
+                    // direction={["row", "row", "column"]}
+                    direction="row"
+                    // fontSize=".95rem"
+                    alignItems="center"
+                  >
+                    <Icon as={RiRocketLine} />
 
-                <Stack
-                  textAlign="center"
-                  w="auto"
-                  rounded="md"
-                  px={0}
-                  py={2}
-                  pt={0}
-                  mr={4}
-                  mb={0}
-                  pb={0}
-                  spacing={1}
-                  justifyContent="flex-end"
-                  // direction={["row", "row", "column"]}
-                  direction="row"
-                  // fontSize=".95rem"
-                  alignItems="center"
-                >
-                  <Icon as={RiRocketLine} />
-
-                  {/* <Text as="span">
-                    {parseInt(props.promoted) == 0
-                      ? "0"
-                      : props.promoted.slice(0, props.promoted.length - 6)}
-                  </Text> */}
-                </Stack>
-                <Stack
-                  textAlign="center"
-                  w="auto"
-                  rounded="md"
-                  px={0}
-                  py={2}
-                  pt={0}
-                  mr={4}
-                  mb={0}
-                  pb={0}
-                  spacing={1}
-                  justifyContent="flex-end"
-                  // direction={["row", "row", "column"]}
-                  direction="row"
-                  alignItems="center"
-                >
-                  <HiveIcon width="20" height="20" />
-                  <Text title={`${props.payout} HBD payout`} as="span">
-                    {props.payout}
-                  </Text>
-                </Stack>
+                    <Text as="span">
+                      {parseInt(props.promoted) == 0
+                        ? "0"
+                        : props.promoted.slice(0, props.promoted.length - 6)}
+                    </Text>
+                  </Stack>
+                )}
+                {props.payout ? (
+                  <Stack
+                    id="question-payout"
+                    textAlign="center"
+                    w="auto"
+                    rounded="md"
+                    px={1}
+                    py={2}
+                    pt={0}
+                    mr={4}
+                    mb={0}
+                    pb={0}
+                    mx={2}
+                    spacing={1}
+                    justifyContent="flex-end"
+                    // direction={["row", "row", "column"]}
+                    direction="row"
+                    alignItems="center"
+                  >
+                    {/* <HiveIcon width="20" height="20" /> */}
+                    <Text title={`${props.payout} HBD payout`} as="span">
+                      ${Math.floor(props.payout * 100) / 100}
+                    </Text>
+                  </Stack>
+                ) : null}
               </Box>
               <Box
                 id="user-details"
@@ -315,9 +334,7 @@ const QuestionCard = (props) => {
                         flexShrink={0}
                         float="right"
                       >
-                        {updated_at == created_at
-                          ? `created `
-                          : `updated `}
+                        {updated_at == created_at ? `created ` : `updated `}
 
                         {updated_at}
                       </Text>
