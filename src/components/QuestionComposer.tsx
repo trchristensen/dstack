@@ -62,8 +62,7 @@ export default function QuestionComposer({ post = null }) {
         tags: convertedTags,
         app: "dstack/0.1",
       }),
-      // permlink: post ? post.permlink : Math.random().toString(36).substring(2),
-      permlink: post.permlink,
+      permlink: post ? post.permlink : Math.random().toString(36).substring(2),
       comment_options: "",
     };
 

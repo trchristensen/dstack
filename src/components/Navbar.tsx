@@ -312,7 +312,7 @@ const Login = () => {
 
               <Stack spacing={0}>
                 <Button
-                  disabled={!hasKeychain}
+                  // disabled={!hasKeychain}
                   bg={"black"}
                   color={"white"}
                   _hover={{
@@ -339,6 +339,7 @@ const Login = () => {
                   /> */}
                 </Button>
               </Stack>
+              {!hasKeychain && (
               <Box
                 mt={2}
                 p={2}
@@ -350,9 +351,10 @@ const Login = () => {
                 textAlign="center"
               >
                 <Text fontWeight="600">
-                  {!hasKeychain && "Please install Hive Keychain to Login"}
+                   "Please install Hive Keychain to Login"
                 </Text>
               </Box>
+              )}
               <Link as="button" bg="blue.500" color="white" rounded="md" p={2} fontWeight="600" _hover={{textDecoration: 'none'}} href="https://hiveonboard.com?ref=ipeeyay" target="_blank">
                 <a>Sign Up</a>
               </Link>
